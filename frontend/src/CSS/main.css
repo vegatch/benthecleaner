@@ -1,0 +1,43 @@
+.footer{
+    position: absolute;
+    height: 30vh;
+    background-color: black;
+    color: white;
+    width : 100%;
+    bottom: 0px;
+    padding: 0 2em;
+    
+}
+
+.footer-row {
+    display: flex;
+      
+}
+
+.class-flex{
+    display:flex;
+    justify-content: space-between;
+    background-color: red;
+}
+.class-flex ul{
+    margin-right: 1rem;
+     /* justify-content: space-between; */
+}
+
+.class-flex ul li{
+    margin-top: .5rem;
+     /* justify-content: space-between; */
+}
+
+.main-list{    
+    /* margin-right: 15rem; */
+    text-transform:uppercase;
+    
+}
+
+.class-flex{    
+    margin-top:1rem;
+    /* position:absolute; */
+    left:2rem;
+    
+}
