@@ -1,0 +1,39 @@
+
+.footer-container{
+    background-color: #1e3d53;
+    width:100vw;
+    color:white;
+    
+}
+
+.flex-container{
+    display:flex;
+    width:50%;    
+    margin-left:7rem;
+}
+
+.block-container{
+    margin-right:2rem;
+}
+
+.top-list{
+    margin:1rem 0 1.5rem 0
+}
+
+.top-list img{
+    width:140px
+}
+
+.footer-bottom{
+    text-align: center;
+    border-top: .2px solid white;
+    margin: 1rem 0;
+    height:2rem;
+    line-height: 2rem;
+
+}
+
+.footer-list p{
+    margin-bottom:.6rem
+
+}

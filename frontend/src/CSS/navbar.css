@@ -1,0 +1,38 @@
+/* .nav-container{
+    background-color: #1e3d53;
+    height: 10vh;
+    display:flex;    
+    align-items:center;
+    font-size: 1.3rem
+} */
+
+.nav-container,
+.header{
+    display:flex;
+    align-items:center;
+    background-color: #1e3d53;
+    height: 10vh;
+    border-bottom: 1px solid darkgray
+}
+
+.nav-container {
+    padding: 0 7rem 0 7rem;
+    justify-content: space-between;
+    font-size: 1.3rem
+}
+
+.header a{
+    list-style-type: none;
+    text-decoration: none;
+    color:white;   
+    margin-left:1rem 
+}
+
+.header li .active
+ {
+    color:#F9A7B0;
+}
+
+.nav-left img{
+    width:140px
+}
