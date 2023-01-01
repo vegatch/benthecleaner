@@ -1,6 +1,8 @@
 import React from "react";
 import hero from '../pics/house-cleaning.jpg'
 import "../CSS/home.css";
+// import Button from "./btn";
+import {  NavLink } from "react-router-dom";
 
 
 export const HomeContent = () => {
@@ -35,26 +37,33 @@ const myStyle={
     backgroundRepeat: 'no-repeat',
 };
 
+// const handleClick=()=>{
+//     return <NavLink to= '/bookNow'>BookNow</NavLink>
+// }
 return (
-	
-    <div className="home-container">
-        <div className="title-container" >        
-        <div className="background-wrapper" style={myStyle}>
-            {/* <img src={hero} alt="cleaning" /> */}
-        </div>
-        <div className="subtitle">
-            {homeContentsDetail.map(({ id, Description }) => (
-                <p key={id}> {Description} </p>         
-            ))}
-            <button type="button">Book now</button>
-            <button type="button">Call now</button>
-        </div>
-        {/* <div className="subtitle">
-            <button type="button">Book now</button>
-            <button type="button">Call now</button>
-        </div> */}
-    </div>
-
+	<div>    
+        <header className="home-container">
+            <div className="title-container" >        
+                <div className="background-wrapper" style={myStyle}>
+                {/* <img src={hero} alt="cleaning" /> */}
+                </div>
+                <div className="subtitle">
+                {homeContentsDetail.map(({ id, Description }) => (
+                    <p key={id}> {Description} </p>         
+                ))}
+                <button type="button" className="btn btn-main">
+                    <NavLink to= '/bookNow'>Book Now</NavLink>
+                </button>
+                
+                {/* <button type="button">Call now</button> */}
+                </div>
+            {/* <div className="subtitle">
+                <button type="button">Book now</button>
+                <button type="button">Call now</button>
+            </div> */}
+            </div>
+        </header>
+            
     </div>
 );
 };

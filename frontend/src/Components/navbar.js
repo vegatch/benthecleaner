@@ -9,7 +9,7 @@ export default function Navbar() {
     
     <div className='nav-container '>
         <div className='nav-left'>
-                        <NavLink end to= '/'><img src={logo} alt="Benjaskya Logo" /></NavLink>
+                        <NavLink end to= '/'><img src={logo} alt="Benskya Logo" /></NavLink>
         </div>
         <div className='nav-right'>
             <ul className='header'>
