@@ -16,8 +16,10 @@ export default function Navbar() {
                 <li><NavLink end to= '/'>Home</NavLink></li>
                 <li><NavLink to= '/About' >About</NavLink></li>
                 <li><NavLink to= '/bookNow'>BookNow</NavLink></li>
-                <li><NavLink to= '/contactUs'>Contact</NavLink></li>                        
+                <li><NavLink to= '/contactUs'>Contact</NavLink></li>  
+                <li className="phone"><a href="tel:7862472127">786-247-2127</a></li>                      
             </ul>
+            
         </div>
     </div>
   )

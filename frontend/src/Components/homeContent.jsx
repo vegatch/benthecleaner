@@ -27,19 +27,14 @@ const homeContentsDetail = [
 	},
 ];
 
-const myStyle={
-    // backgroundImage: `url(${hero})`,    
+const myStyle={     
     backgroundImage:`linear-gradient( rgba(8, 8, 8, 0.85), rgba(0, 15, 80, 0.675)), url("${hero}")`,
-    height:'100vh',
-    // marginTop:'-70px',
+    height:'70vh',    
     fontSize:'50px',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
 };
 
-// const handleClick=()=>{
-//     return <NavLink to= '/bookNow'>BookNow</NavLink>
-// }
 return (
 	<div>    
         <header className="home-container">
