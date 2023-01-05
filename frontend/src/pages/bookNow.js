@@ -1,5 +1,6 @@
 import React from "react";
 import "../CSS/book.css";
+import {BookNowForm} from "../Components/bookNowForm";
 
 const BookNow = () => {
   return (
@@ -10,6 +11,7 @@ const BookNow = () => {
       <div className="book-flex-container">
         <section className="section-left">
           <p>i am the left section in the page</p>
+          <BookNowForm />
         </section>
         <section className="section-middle"></section>
         <section className="section-right">

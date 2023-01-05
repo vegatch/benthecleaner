@@ -51,3 +51,19 @@
     height:2rem;
     line-height:1.2rem;
 }
+
+.form-container{
+    width:100%;
+    padding:1rem 0;
+}
+
+
+.form-container fieldset{
+    padding:1rem;
+}
+
+.form-container fieldset {
+    border:.1rem lightgray solid;
+    /* width:100%; */
+    
+}
