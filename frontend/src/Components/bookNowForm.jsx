@@ -1,7 +1,9 @@
 import React from "react";
+
 import "../CSS/book.css";
 
 export function BookNowForm() {
+    
     return(
         <div className="form-container">
             <div>
@@ -13,7 +15,7 @@ export function BookNowForm() {
                         <legend>Space to be cleaned</legend>
                         <label>
                             # of bedrooms
-                            <input name="name" />
+                            <input name="name"  />                            
                         </label>
                     </fieldset>
                     {/* <fieldset></fieldset>
