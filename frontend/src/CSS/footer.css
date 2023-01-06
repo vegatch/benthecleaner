@@ -1,6 +1,6 @@
 
 .footer-container{
-    background-color: #1e3d53;
+    background-color:var(--bg-color-navbar);
     width:100vw;
     color:white;
     

@@ -5,11 +5,14 @@
     /* height:100vh; */
 }
 
-.book-flex-container{
+.book-flex-container,
+.label-flex-container{
     display: flex;
-    width:inherit;
-    justify-content:space-between;
+    width:inherit; 
     
+}
+.book-flex-container{
+    justify-content:space-between;
 }
 
 .section-middle{
@@ -65,5 +68,33 @@
 .form-container fieldset {
     border:.1rem lightgray solid;
     /* width:100%; */
+    
+}
+
+.label-flex-container{
+    align-items:center;
+}
+
+
+.label-flex-container input{
+    width: 2rem;
+    text-align:center;
+    border:none;
+    background-color:inherit;
+    /* margin-right: 1rem; */
+}
+
+.label-flex-container button{
+    font-weight:bold;
+    height:.7rem;
+    border: none;
+    background-color:var(--bg-color-highlight);
+    /* margin-right: .4rem; */
+    /* font-size:1.1rem; */
+    display:block
+}
+
+.label-flex-container .btn2{
+    rotate: 180deg;
     
 }

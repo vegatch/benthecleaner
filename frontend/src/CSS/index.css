@@ -1,5 +1,11 @@
+:root {
+  --bg-color-pages: #f5f0e1;
+  --bg-color-navbar: #1e3d53;
+  --bg-color-highlight:#ff6e40;
+  /* --blur: 10px; */
+}
 body{
-    background-color: #f5f0e1;
+    background-color: var(--bg-color-pages);
     width:100vw;
     
 }
