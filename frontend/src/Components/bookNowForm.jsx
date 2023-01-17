@@ -4,86 +4,107 @@ import React, { useState } from "react";
 import "../CSS/book.css";
 
 export function BookNowForm() {
-    // ------------------
-    const [count, setCount] = useState(0)  
-    const handleIncrement = (e) => {
-        e.preventDefault();
-        setCount(count + 1)
-    }
-    const handleDecrement = (e) => {
-        e.preventDefault();
-        count > 0 ? setCount(count - 1) : setCount(0);
-    }
-    const countHandler = e => {
-        e.preventDefault();
-        setCount(e.target.value);
+  const [formValue, setFormValue] = useState({
+    bedroom: 0,
+    bathroom: 0,
+    frequency: "",
+  });
 
-    };
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormValue((prevState) => {
+      return {
+        ...prevState,
+        [name]: value,
+      };
+    });
+  };
 
-    // ------------------
-    // ------------------- Form states
-    // const [bookInfo, setBookInfo] = useState({
-    //     bedroom: 0,
-    //     bathroom: 0,
-    // });
+  const { bedroom, bathroom, frequency } = formValue;
 
-    // const bookIncrement = (e) => {
-    //     e.preventDefault();
-    //     setBookInfo({countHandler})
-    // }
-    // const bookDecrement = (e) => {
-    //     e.preventDefault();
-    //     setBookInfo({handleDecrement});
-    // }
-    // const bookHandler = e => {
-    //     e.preventDefault();
-    //     setCount(e.target.value);
-
-    // };
-
-    // --------------------
-    
-    return(
-        <div className="form-container">
-            <div>
-                <h1> Please fill out the form below to book your service</h1>
-            </div>
-            <div>
-                <form>
-                    <fieldset>
-                        <legend>Space to be cleaned</legend>
-                        <label className="label-flex-container">
-                            # of bedrooms:
-                            <input type="text"
-                                name="bedroom"
-                                onChange={countHandler}
-                                value={count} />  
-                            <div className="btn">
-                                <button onClick={handleIncrement}>^</button>
-                                <button className="btn2" onClick={handleDecrement} disabled={count === 0 ? true : false}>^</button>
-                            </div>                          
-                        </label>
-                        <label className="label-flex-container">
-                            # of bathrooms:
-                            <input type="text"
-                                name="bathroom"
-                                onChange={countHandler}
-                                value={count} />  
-                            <div className="btn">
-                                <button onClick={handleIncrement}>^</button>
-                                <button className="btn2" onClick={handleDecrement} disabled={count === 0 ? true : false}>^</button>
-                            </div>                          
-                        </label>
-                        
-                    </fieldset>
-                    {/* <fieldset></fieldset>
-                    <fieldset></fieldset>
-                    <fieldset></fieldset> */}
-                    <button type="submit">Submit</button>
-                </form>
-            </div>
+  return (
+    <div>
+        <div>
+            <label>
+                bedroom
+                <input 
+                type="number" 
+                name="bedroom" 
+                min="0" 
+                onChange={handleChange} 
+                value={bedroom} />
+            </label>
         </div>
-    )
-}
 
-// export default bookNowForm;
+        <div>
+            <label>
+                bedroom
+                <input 
+                type="number" 
+                name="bedroom" 
+                min="0" 
+                onChange={handleChange} 
+                value={bedroom} />
+            </label>
+        </div>
+        
+       <div>
+            <label>
+                bathroom
+                <input 
+                type="number" 
+                name="bathroom" 
+                min="0" 
+                onChange={handleChange} 
+                value={bathroom} />
+            </label>
+        </div>
+        
+        <div>
+            <label>
+                How often do you want our service
+                <select name="frequency" id="frequency" 
+                value={frequency} onChange={handleChange} >
+                    <option value="N/A">Please select your choice</option>
+                    <option value="Once">One time</option>
+                    <option value="weekly">Every weeks</option>
+                    <option value="biweekly">Every two weeks</option>
+                    <option value="monthly">Every four weeks</option>
+                </select>
+            </label>
+        </div>
+        <div>
+            <div className="frequency-wrapper">
+                <label htmlFor="oneTime" className="switch">
+                    One time                    
+                </label>
+                <input name="oneTime" type="checkbox" />
+                <span className="slider round"></span>
+            </div>
+            <div className="frequency-wrapper">
+                <label className="switch">
+                    Weekly
+                    <input type="checkbox" />
+                    <span className="slider round"></span>
+                </label>
+            </div>
+            <div className="frequency-wrapper">
+                <label className="switch">
+                    Bi-weekly
+                    <input type="checkbox" />
+                    <span className="slider round"></span>
+                </label>
+            </div>
+            <div className="frequency-wrapper">
+                <label className="switch">
+                    Monthly
+                    <input type="checkbox" />
+                    <span className="slider round"></span>
+                </label>
+            </div>
+            
+        </div>
+        
+    </div>
+  );
+}

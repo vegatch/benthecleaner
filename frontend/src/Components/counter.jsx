@@ -54,11 +54,26 @@ export const Counter = () => {
 }
 
 
-let select =() =>{
-    let numberOfRooms = 0;
-    for (let i = 0; i < 10; i++) {
-        numberOfRooms +=  i ;
+let select = (deepClean=false, bedroomNum, bathroomNum ) =>{
+    let bathroomPrice = 30;
+    let bedroomPrice = 20;
+    let standardCleanPrice = 0
+    let cleanPrice = 0
+    let deepCleanPrice = standardCleanPrice + 100;
+    let basePrice = 95;
+    if(deepClean === false){
+        if(bedroomNum<=3){
+            bedroomPrice = 20;
+            let price = (basePrice + (bedroomNum * bedroomPrice) + (bathroomNum * bathroomPrice)) 
+            standardCleanPrice = (price *.07) + price
+            cleanPrice = standardCleanPrice
+        }else{
+            bedroomPrice = 30;
+            let price = (basePrice + (bedroomNum * bedroomPrice) + (bathroomNum * bathroomPrice)) 
+            standardCleanPrice = (price *.07) + price
+            cleanPrice = standardCleanPrice
+        }
     }
-    return numberOfRooms
+       return  cleanPrice
 }
-select()
+select(false, 6, 0)
