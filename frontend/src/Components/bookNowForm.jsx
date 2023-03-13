@@ -1,205 +1,268 @@
-import React from "react";
+import React, {useReducer, useState, useEffect} from "react";
+import "../CSS/bookingNowForm.css";
 // import { useState, useRef } from 'react'
 // import { useRef } from "react";
 // import React, { useState } from "react";
 
 import "../CSS/book.css";
 
-export function BookNowForm() {
-  const [formValue, setFormValue] = React.useState({
-    bedroom: 0,
-    bathroom: 0,
-    deepClean: "false",
-    
-  });
-//   const [checked, setChecked] = React.useState(false);
-  const bedroomNum = React.useRef(0);
-  const bathroomNum = React.useRef(0);
-  const deepClean = React.useRef(false);
-//   ----------------------------------------------
-  const [frequence, setFrequence] = React.useState(false)
-    const handleOnceChange = () => {
-        setFrequence('Once');
-    };
-    const handleWeeklyChange = () => {
-        setFrequence('Weekly');
-    };
-    const handleBiWeeklyChange = () => {
-        setFrequence('BiWeekly');
-    };
-    const handleMonthlyChange = () => {
-        setFrequence('Monthly');
-    };
-// --------------------------------------------------
-  const calculateQuote = (e) =>{
-        
-        console.log(bedroomNum.current.value)
-        console.log(bathroomNum.current.value)
+const formReducer = (state, event)=>{
+  return{
+    ...state,
+    [event.name]: event.value
   }
-//   const handleCheck = e =>{
-//     setChecked(!checked);
-//   }
-  const handleChange = (event) => {
-    
-    const { name, value } = event.target;
-    setFormValue((prevState) => {
-      return {
-        ...prevState,
-        [name]: value,        
-      };
-    });
-    console.log('handlechange bed', bedroomNum.current.value)
-    console.log('handlechange bath', bathroomNum.current.value)
-    console.log('handlechange deepclean', event.target.value)
-  };
 
-  const { bedroom, bathroom } = formValue;
-
-  return (
-    <div>
-        <div>
-            <label>
-                bedroom
-                <input 
-                type="number" 
-                name="bedroom" 
-                id="bedroom"
-                ref={bedroomNum}
-                min="0" 
-                onChange={handleChange} 
-                onMouseLeave={calculateQuote}
-                value={bedroom} />
-            </label>
-        </div>
-
-        <div>
-            <label>
-                Deep clean
-                <select name="deepClean"
-                value={deepClean} onChange={handleChange} >
-                    <option value="N/A">Please select your choice</option>
-                    <option value="true">Yes</option>
-                    <option value="false">No</option>
-                </select>  
-            </label>
-        
-        </div>
-        
-       <div>
-            <label>
-                bathroom
-                <input 
-                type="number" 
-                name="bathroom" 
-                id="bathroom"
-                ref={bathroomNum}
-                min="0" 
-                onChange={handleChange} 
-                value={bathroom} />
-            </label>
-        </div>
-        
-        {/* <div>
-            <label>
-                How often do you want our service
-                <select name="frequency" id="frequency" 
-                value={frequency} onChange={handleChange} >
-                    <option value="N/A">Please select your choice</option>
-                    <option value="Once">One time</option>
-                    <option value="weekly">Every weeks</option>
-                    <option value="biweekly">Every two weeks</option>
-                    <option value="monthly">Every four weeks</option>
-                </select>                
-            </label>
-        </div> */}
-        <div>
-            <RadioButton
-                label="One time"
-                value={frequence === 'Once'}
-                onChange={handleOnceChange}
-            />
-            <RadioButton
-                label="Weekly"
-                value={frequence === 'Weekly'}
-                onChange={handleWeeklyChange}
-            />
-            <RadioButton
-                label="Biweekly"
-                value={frequence === 'BiWeekly'}
-                onChange={handleBiWeeklyChange}
-            />
-            <RadioButton
-                label="Monthly"
-                value={frequence === 'Monthly'}
-                onChange={handleMonthlyChange}
-            />
-        </div>
-        
-    </div>
-  );
 }
+export function BookNowForm() {
+  const [formData, setFormData] = useReducer(formReducer, {bedroom:0, bathroom:0})
+  const [submitting, setSubmitting] = useState(false);
+  const [total, setTotal] = useState(0)
 
-const RadioButton = ({ label, value, onChange }) => {
-  return (
-    <label>
-      <input type="radio" checked={value} onChange={onChange} />
-      {label}
-    </label>
-  );
-};
 
-// const Checkbox = ({ label, value, onChange }) => {
-//   return (
-//     <label>
-//       {label}
-//       <input type="checkbox" checked={value} onChange={onChange} />
-//     </label>
-//   );
-// };
+  const handleSubmit = (e) =>{
+    e.preventDefault();
+    setSubmitting(true);
 
-// export const calculateQuote =() =>{
-//     let bedroomNum = document.querySelector('#bedroom').value
-//     let bathroomNum = document.querySelector('#bathroom')
-//     let deepClean = document.querySelector('#deepClean')
-//     let bathroomPrice = 30;
-//     let bedroomPrice = 0;
-//     let bedroomTotalPrice = 0
-//     let standardCleanPrice = 0
-//     let cleanPrice = 0
-//     let basePrice = 100;    
+    setTimeout(()=>{
+      setSubmitting(false);
+    }, 2000)
+  }
 
-//     if(bedroomNum > 0 &&  bedroomNum < 3){
-//         bedroomPrice = 20
-//         bedroomTotalPrice = bedroomPrice * bedroomNum
-//     }else if(bedroomNum === 3){
-//         bedroomPrice = 24
-//         bedroomTotalPrice = bedroomPrice * bedroomNum
-//     }
-//     else if(bedroomNum === 4){
-//         bedroomPrice = 28
-//         bedroomTotalPrice = bedroomPrice * bedroomNum
-//     }
-//     else if(bedroomNum === 5){
-//         bedroomPrice = 30
-//         bedroomTotalPrice = bedroomPrice * bedroomNum
-//     }
-//     else if(bedroomNum === 6){
-//         bedroomPrice = 34
-//         bedroomTotalPrice = bedroomPrice * bedroomNum
-//     }
-//     else{
-//         bedroomPrice = 36
-//         bedroomTotalPrice = bedroomPrice * bedroomNum
-//     }
-//     // let bedroomTotalPrice = bedroomPrice * bedroomNum
-//     let bathroomTotalPrice = bathroomPrice * bathroomNum
-//     standardCleanPrice = basePrice + bedroomTotalPrice + bathroomTotalPrice
+  const handleChange = (event) =>{
+    setFormData({
+      name:event.target.name,
+      value:event.target.value
+    })     
     
-//     cleanPrice = deepClean === true ? standardCleanPrice + 100 : standardCleanPrice;
+  }
+
+
+  // const quote = () =>{
+  //   let room = Number(formData.bedroom)
+  //   let bath = Number(formData.bathroom)
+  //   let sum = (room * 50) + (bath * 20)
+  //   console.log(sum)
+  //   setTotal(sum)    
+  // }
+
+  useEffect(() => {
     
-//     console.log('Cleaning price',cleanPrice)
-//     return  cleanPrice
+    const quote = () =>{
+      let room ;
+      let bath ;
+      let sum =0;
+      
+      setTotal(()=>{
+        if( formData.bedroom === 'N/A' ){
+        room = 0
+        bath = Number(formData.bathroom)
+        sum = (room * 50) + (bath * 20)
+        console.log(sum)
+        return sum
+      }
+      
+      if( formData.bathroom === 'N/A' ){
+          bath = 0
+        room = Number(formData.bedroom)
+        sum = (room * 50) + (bath * 20)
+        console.log(sum)
+        return sum
+      }
+      if( formData.bedroom !== 'N/A' &&  formData.bathroom !== 'N/A' ){
+        bath = Number(formData.bathroom)  
+        room = Number(formData.bedroom)
+        sum = (room * 50) + (bath * 20)
+        console.log(sum)
+        return sum
+      }
+      })  
+    
+
+  };
+    quote();
+    
+  }, [formData])
+ 
+  return(
+    
+    <div>
+    console.log(formData)
+        {submitting &&
+       <div>
+         You are submitting the following:
+         <ul>
+           {Object.entries(formData).map(([name, value]) => (
+             <li key={name}><strong>{name}</strong>:{value.toString()}</li>
+           ))}
+         </ul>
+       </div>
+      }
+      <form onSubmit={handleSubmit}>
+      <fieldset className="personal-container">
+        <legend className="legend">Personal Information:</legend>
+        <div className="flex-form-container first-row">
+          <div className="form-control box1">
+            <label>
+              <p> First Name</p>
+              <input 
+                name="firstName"
+                placeholder="enter your first name"
+                onChange={handleChange}
+              />
+            </label>
+          </div>
+          <div className="form-control box2">
+            <label>
+              <p> Middle Name</p>
+              <input 
+                name="middleName"
+                placeholder="enter your middle name"
+                onChange={handleChange}
+              />
+            </label>
+          </div>
+          {/* <div className="form-control box12"></div> */}
+          <div className="form-control box3">
+            <label>
+              <p> Last Name</p>
+              <input 
+                name="lastName"
+                placeholder="enter your last name"
+                onChange={handleChange}
+              />
+            </label>
+          </div>
+        </div>
+        {/* second row */}
+        <div className="flex-form-container second-row">
+          <div className="form-control box4">
+            <label>
+              <p> Email</p>
+              <input 
+                name="email"
+                placeholder="enter your email"
+                onChange={handleChange}
+              />
+            </label>
+          </div>
+          {/* <div className="form-control box10"></div>
+          <div className="form-control box11"></div> */}
+          <div className="form-control box5">
+            <label>
+              <p> Phone Number</p>
+              <input 
+                name="phoneNumber"
+                placeholder="enter your phone number"
+                onChange={handleChange}
+              />
+            </label>
+          </div>
+          
+        </div>
+        {/* Third row */}
+        <div className="flex-form-container third-row">
+          <div className="form-control box6">
+            <label>
+              <p> Street Number & Name</p>
+              <input 
+                name="streetName"
+                placeholder="enter your street number and name"
+                onChange={handleChange}
+              />
+            </label>
+          </div>
+          <div className="form-control box7">
+            <label>
+              <p> City</p>
+              <input 
+                name="city"
+                placeholder="enter your city"
+                onChange={handleChange}
+              />
+            </label>
+          </div>
+          <div className="form-control box8">
+            <label>
+              <p> State</p>
+              <input 
+                name="state"
+                placeholder="enter your state"
+                onChange={handleChange}
+              />
+            </label>
+          </div>
+          <div className="form-control box9">
+            <label>
+              <p> Zip code</p>
+              <input 
+                name="zipCode"
+                placeholder="enter your zip code"
+                onChange={handleChange}
+              />
+            </label>
+          </div>
+        </div>
+      </fieldset >
+      {/* Information about the property */}
+      <fieldset className="personal-container">
+      <legend className="legend"> Property Information:</legend>
+      <div>
+        <label>
+          Choose your cleaning need
+          <select name="cleaningType" onChange={handleChange}>
+            <option value="N/A">Please your choice</option>
+            <option>Standard cleaning</option>
+            <option>Deep cleaning</option>
+            <option>Move in/ Move out cleaning</option>
+            <option>One hour cleaning</option>
+          </select>
+        </label>
+      </div>
+      <div>
+
+        <label>
+        <p>Number of rooms</p>
+            <select name="bedroom" onChange={handleChange}>
+              <option value='N/A'> Please select # of rooms</option>
+              <option value= "1">One </option>
+              <option value= "2">Two </option>
+              <option value= "3">Three </option>
+              <option value= "4">Four </option>
+              <option value= "5">Five </option>
+              <option value= "6">Six </option>
+            </select>
+        </label>
+      </div>
+      
+      <div>
+        <label>
+          <p>Number of bathrooms</p>          
+          <select name="bathroom" onChange={handleChange} >
+              <option value='N/A'> Please select # of bath</option>
+              <option value= "1">One </option>
+              <option value= "2">Two </option>
+              <option value= "3">Three </option>
+              <option value= "4">Four </option>
+              <option value= "5">Five </option>
+              <option value= "6">Six </option>
+            </select>
+        </label>
+
+      </div>
+      </fieldset>
+      <div>
+        <label>
+          total
+          <input
+          
+            value= {isNaN(total) ? 0 : total } readOnly/>
+        </label>
+      </div>
+      <button type="Submit">Submit</button>
+      
 
 
-// }
-// calculateQuote()
+      </form>
+    </div>
+  )
+}

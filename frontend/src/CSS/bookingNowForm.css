@@ -1,0 +1,51 @@
+
+form{
+    background-color:inherit;
+    width:100%;     
+   
+}
+
+fieldset,
+.personal-container{
+    /* background-color:cyan; */
+    padding:0 1rem;
+    margin: 2rem 0;
+    outline:none;
+    border-bottom: .1rem solid lightgray;
+}
+
+
+
+.first-row,
+.second-row,
+.third-row{
+    display:flex;
+    justify-content:space-between;
+    padding:.5rem 0;
+    
+}
+
+
+
+.second-row .box4,
+.second-row .box5{
+    /* background-color:green; */
+    width:48%;
+    
+}
+
+.legend{
+    font-weight:bold;
+    font-size:1.3rem;
+}
+
+input{
+    height:1.6rem;
+    margin:0;
+    width:100%;
+    background-color:inherit;
+    border:none;
+    border-bottom: .1rem solid lightgray;
+
+}
+
