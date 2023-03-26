@@ -6,22 +6,27 @@ form{
 }
 
 fieldset,
-.personal-container{
-    /* background-color:cyan; */
+.fieldset-container{
     padding:0 1rem;
-    margin: 2rem 0;
     outline:none;
     border-bottom: .1rem solid lightgray;
+    margin:2rem 0;
+
 }
 
 
 
+/* .dateTimeContainer, */
 .first-row,
 .second-row,
-.third-row{
+.third-row,
+.flexContainer
+{
     display:flex;
     justify-content:space-between;
-    padding:.5rem 0;
+    padding:.8rem 0;
+    align-items:center;
+
     
 }
 
@@ -37,8 +42,10 @@ fieldset,
 .legend{
     font-weight:bold;
     font-size:1.3rem;
+    /* margin-bottom:.8rem; */
 }
 
+select,
 input{
     height:1.6rem;
     margin:0;
@@ -49,3 +56,35 @@ input{
 
 }
 
+
+
+.flex-element{
+    width:48%
+}
+.dateContainer{
+    margin-right: 1rem;
+}
+select,
+input[type='date']{
+    width:100%;
+}
+
+.radio-container input[type='radio']{
+   display: none;
+}
+
+.radio-container label{
+  display: inline-block;
+  /* background-color: white; */
+  /* padding: 4px 11px; */
+  /* font-family: Arial; */
+  padding:1rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  border: 1px solid lightgray
+}
+
+.radio-container input[type="radio"]:checked+label {
+  background-color: red;
+  font-weight:bold;
+}

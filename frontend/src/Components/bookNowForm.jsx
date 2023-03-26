@@ -1,10 +1,17 @@
 import React, {useReducer, useState, useEffect} from "react";
 import "../CSS/bookingNowForm.css";
+
 // import { useState, useRef } from 'react'
 // import { useRef } from "react";
 // import React, { useState } from "react";
 
 import "../CSS/book.css";
+
+const times = ['Please select a time','8:00 AM', '11:00 AM', '1:00 PM']
+
+const cleaningTypes = ['Please select your cleaning option', 'Standard Cleaning', 'Deep Cleaning', 'Move In / Move Out']
+
+// console.log(roomsNumber.indexOf(roomsNumber))
 
 const formReducer = (state, event)=>{
   return{
@@ -17,15 +24,19 @@ export function BookNowForm() {
   const [formData, setFormData] = useReducer(formReducer, {bedroom:0, bathroom:0})
   const [submitting, setSubmitting] = useState(false);
   const [total, setTotal] = useState(0)
+  
+  
+    
 
 
   const handleSubmit = (e) =>{
     e.preventDefault();
     setSubmitting(true);
-
+    
     setTimeout(()=>{
       setSubmitting(false);
-    }, 2000)
+     
+    }, 5000)
   }
 
   const handleChange = (event) =>{
@@ -33,6 +44,7 @@ export function BookNowForm() {
       name:event.target.name,
       value:event.target.value
     })     
+
     
   }
 
@@ -61,7 +73,7 @@ export function BookNowForm() {
         return sum
       }
       
-      if( formData.bathroom === 'N/A' ){
+      if( formData.bathroom === 'N/A'){
           bath = 0
         room = Number(formData.bedroom)
         sum = (room * 50) + (bath * 20)
@@ -82,6 +94,9 @@ export function BookNowForm() {
     quote();
     
   }, [formData])
+
+
+  
  
   return(
     
@@ -98,7 +113,7 @@ export function BookNowForm() {
        </div>
       }
       <form onSubmit={handleSubmit}>
-      <fieldset className="personal-container">
+      <fieldset className="fieldset-container">
         <legend className="legend">Personal Information:</legend>
         <div className="flex-form-container first-row">
           <div className="form-control box1">
@@ -204,22 +219,12 @@ export function BookNowForm() {
         </div>
       </fieldset >
       {/* Information about the property */}
-      <fieldset className="personal-container">
+      <fieldset className="fieldset-container">
       <legend className="legend"> Property Information:</legend>
-      <div>
-        <label>
-          Choose your cleaning need
-          <select name="cleaningType" onChange={handleChange}>
-            <option value="N/A">Please your choice</option>
-            <option>Standard cleaning</option>
-            <option>Deep cleaning</option>
-            <option>Move in/ Move out cleaning</option>
-            <option>One hour cleaning</option>
-          </select>
-        </label>
-      </div>
-      <div>
-
+      
+      
+     <div className="flexContainer">
+      <div className="flex-element"> 
         <label>
         <p>Number of rooms</p>
             <select name="bedroom" onChange={handleChange}>
@@ -233,12 +238,12 @@ export function BookNowForm() {
             </select>
         </label>
       </div>
-      
-      <div>
-        <label>
-          <p>Number of bathrooms</p>          
-          <select name="bathroom" onChange={handleChange} >
-              <option value='N/A'> Please select # of bath</option>
+
+        <div className="flex-element">     
+          <label>
+            <p>Number of bathrooms</p> 
+            <select name="bathroom" onChange={handleChange}>
+              <option value='N/A'> Please select # of rooms</option>
               <option value= "1">One </option>
               <option value= "2">Two </option>
               <option value= "3">Three </option>
@@ -246,9 +251,57 @@ export function BookNowForm() {
               <option value= "5">Five </option>
               <option value= "6">Six </option>
             </select>
-        </label>
+          </label>         
+        </div>
+
+     </div>
+      </fieldset>
+      <fieldset className="fieldset-container">
+        <legend className="legend">Cleaning Option and frequency</legend>
+        <div className="flexContainer">
+          <div className="flex-element"> 
+            <label>
+              Cleaning type:
+              <select name='cleaningType' onChange={handleChange}>
+                    {
+                      cleaningTypes.map( (cleaningType, index) => 
+                       <option key={index}>{cleaningType}</option> )
+                    }
+              </select>
+            </label>             
+          </div>
+          <div className="flex-element"> 
+          {
+           (formData.cleaningType ==='Standard Cleaning' && <p>Starndard cleaning text</p>) ||
+            (formData.cleaningType ==='Deep Cleaning' && <p>Deep cleaning text</p>) ||
+            (formData.cleaningType ==='Move In / Move Out' && <p>Move in / move out cleaning text</p>)
+          }
 
       </div>
+      </div>
+      <div onChange={handleChange} className="flexContainer radio-container">    
+          <input type="radio" value="1" name="cleaningFrequency" id="radio1"/>
+          <label for="radio1">One time</label>
+
+          <input type="radio" value="0.20" name="cleaningFrequency" id="radio2"/>
+          <label for="radio2">Weekly</label>
+
+          <input type="radio" value="0.15" name="cleaningFrequency" id="radio3"/>
+          <label for="radio3">Biweekly</label>
+
+          <input type="radio" value="0.10" name="cleaningFrequency" id="radio4"/>
+          <label for="radio4">Monthly</label>
+        
+      </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Add on</legend>
+        <div>
+          <label>
+            <input />
+          </label>
+        </div>
       </fieldset>
       <div>
         <label>
@@ -257,6 +310,34 @@ export function BookNowForm() {
           
             value= {isNaN(total) ? 0 : total } readOnly/>
         </label>
+      </div>
+      <div className="flexContainer">
+          <div className="flex-element"> 
+            <label>
+              Date:
+              <input 
+                name="selectDate"
+                onChange={handleChange}
+                type='date'
+              />
+            </label>
+          </div>
+          {
+            formData.selectDate  ? 
+            <div className="flex-element"> 
+            <label>
+              Time:
+              <select name='selectTime' onChange={handleChange}>
+                    {
+                      times.map( (time, index) => 
+                       <option key={index}>{time}</option> )
+                    }
+              </select>
+            </label>             
+          </div>
+          : ''
+          }
+       
       </div>
       <button type="Submit">Submit</button>
       
