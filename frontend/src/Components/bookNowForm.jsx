@@ -9,7 +9,22 @@ import "../CSS/book.css";
 
 const times = ['Please select a time','8:00 AM', '11:00 AM', '1:00 PM']
 
-const cleaningTypes = ['Please select your cleaning option', 'Standard Cleaning', 'Deep Cleaning', 'Move In / Move Out']
+const cleaningTypes = [
+  'Please select your cleaning option', 
+'Standard Cleaning', 
+'Deep Cleaning', 
+'Move In / Move Out',
+'After construction'
+]
+
+const cleaningDescription = {
+  "standard": "Standard cleaning description text to be displayed here",
+  "Deep": "Deep cleaning description text to be displayed here",
+  "MoveInOut": "Move in / Move out cleaning description text to be displayed here",
+  "AfterConstruction": "After construction cleaning description text to be displayed here"
+}
+ 
+
 
 // console.log(roomsNumber.indexOf(roomsNumber))
 
@@ -36,16 +51,19 @@ export function BookNowForm() {
     setTimeout(()=>{
       setSubmitting(false);
      
-    }, 5000)
+    }, 10000)
   }
 
   const handleChange = (event) =>{
-    setFormData({
-      name:event.target.name,
-      value:event.target.value
-    })     
+  //  const target = event.target;
+  //   const value = target.type === 'checkbox' ? target.checked : target.value;
+  //   const name = target.name;
 
-    
+    setFormData({
+      name:event.target.name,      
+      // value:event.target.value || event.target.checked
+      value: event.target.type === 'checkbox' ? event.target.checked : event.target.value
+    })      
   }
 
 
@@ -272,37 +290,124 @@ export function BookNowForm() {
           </div>
           <div className="flex-element"> 
           {
-           (formData.cleaningType ==='Standard Cleaning' && <p>Starndard cleaning text</p>) ||
-            (formData.cleaningType ==='Deep Cleaning' && <p>Deep cleaning text</p>) ||
-            (formData.cleaningType ==='Move In / Move Out' && <p>Move in / move out cleaning text</p>)
+           (formData.cleaningType ==='Standard Cleaning' && <p>{cleaningDescription.standard}</p>) ||
+            (formData.cleaningType ==='Deep Cleaning' && <p>{cleaningDescription.Deep}</p>) ||
+            (formData.cleaningType ==='Move In / Move Out' && <p>{cleaningDescription.MoveInOut}</p>) ||
+            (formData.cleaningType ==='After construction' && <p>{cleaningDescription.AfterConstruction}</p>)
           }
 
       </div>
       </div>
       <div onChange={handleChange} className="flexContainer radio-container">    
           <input type="radio" value="1" name="cleaningFrequency" id="radio1"/>
-          <label for="radio1">One time</label>
+          <label htmlFor="radio1">One time</label>
 
           <input type="radio" value="0.20" name="cleaningFrequency" id="radio2"/>
-          <label for="radio2">Weekly</label>
+          <label htmlFor="radio2">Weekly</label>
 
           <input type="radio" value="0.15" name="cleaningFrequency" id="radio3"/>
-          <label for="radio3">Biweekly</label>
+          <label htmlFor="radio3">Biweekly</label>
 
           <input type="radio" value="0.10" name="cleaningFrequency" id="radio4"/>
-          <label for="radio4">Monthly</label>
+          <label htmlFor="radio4">Monthly</label>
         
       </div>
       </fieldset>
+      {
+        formData.cleaningType ==='Standard Cleaning' ? 
+         <fieldset className="fieldset-container">
+        <legend className="legend">Extra service</legend>
+        <div className="extraContainer">
+          <div className="extraLeft">
+          <div className="checkedContainer">
+            <div className="elementLeft">
+                <div className="leftContainer">
+                  <label htmlFor="oven">Inside the oven</label>
+                  <input 
+                    name="oven"
+                    type="checkbox" 
+                    onChange={handleChange}
+                  />
+                </div>
+            </div>
+            <div className="elementRight">
+              {
+              formData.oven  && 
+                
+                <label>
+                  # of oven
+                  <input 
+                    type="number"
+                    name="numberOfOven"              
+                    onChange={handleChange}
+                  />
+                </label>
+            }
+            </div>
+            
+          </div>
+          <div className="checkedContainer">
+            <div className="elementLeft">
+                <div className="leftContainer">
+                  <label htmlFor="fridge">Inside the fridge</label>
+                  <input 
+                    name="fridge"
+                    type="checkbox" 
+                    onChange={handleChange}
+                  />
+                </div>
+            </div>
+            <div className="elementRight">
+              {
+              formData.fridge  && 
+                
+                <label>
+                  # of fridge
+                  <input 
+                    type="number"
+                    name="numberOfFridge"              
+                    onChange={handleChange}
+                  />
+                </label>
+            }
+            </div>
+            
+          </div>
+          <div className="checkedContainer">
+            <div className="elementLeft">
+                <div className="leftContainer">
+                  <label htmlFor="window">Inside the window</label>
+                  <input 
+                    name="window"
+                    type="checkbox" 
+                    onChange={handleChange}
+                  />
+                </div>
+            </div>
+            <div className="elementRight">
+              {
+              formData.window.checked = 'true'   && 
+                
+                <label>
+                  # of window
+                  <input 
+                    type="number"
+                    name="numberOfWindow"              
+                    onChange={handleChange}
+                  />
+                </label>
+            }
+            </div>
+            
+          </div>
+          </div>
+          <div className="extraRight"></div>
 
-      <fieldset>
-        <legend>Add on</legend>
-        <div>
-          <label>
-            <input />
-          </label>
         </div>
       </fieldset>
+      :''
+      }
+     
       <div>
         <label>
           total

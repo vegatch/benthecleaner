@@ -88,3 +88,25 @@ input[type='date']{
   background-color: red;
   font-weight:bold;
 }
+
+
+
+
+.checkedContainer{
+    display:flex;
+    align-items:center;
+}
+
+.elementLeft, .elementRight{
+    width:50%;
+}
+
+.leftContainer{
+    display: flex;
+    align-items:center;
+    width:100%
+}
+
+.leftContainer label{
+    width:70%
+}
