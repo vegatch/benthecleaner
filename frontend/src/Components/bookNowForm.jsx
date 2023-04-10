@@ -14,14 +14,14 @@ const cleaningTypes = [
 'Standard Cleaning', 
 'Deep Cleaning', 
 'Move In / Move Out',
-'After construction'
+'Post construction'
 ]
 
 const cleaningDescription = {
   "standard": "Standard cleaning description text to be displayed here",
   "Deep": "Deep cleaning description text to be displayed here",
   "MoveInOut": "Move in / Move out cleaning description text to be displayed here",
-  "AfterConstruction": "After construction cleaning description text to be displayed here"
+  "PostConstruction": "After construction cleaning description text to be displayed here"
 }
  
 
@@ -38,7 +38,9 @@ const formReducer = (state, event)=>{
 export function BookNowForm() {
   const [formData, setFormData] = useReducer(formReducer, {bedroom:0, bathroom:0})
   const [submitting, setSubmitting] = useState(false);
-  const [total, setTotal] = useState(0)
+  const [total, setTotal] = useState(0);
+  const [subTotal, setSubTotal] = useState(0)
+  const [selected, setSelected] = useState(1)
   
   
     
@@ -58,7 +60,7 @@ export function BookNowForm() {
   //  const target = event.target;
   //   const value = target.type === 'checkbox' ? target.checked : target.value;
   //   const name = target.name;
-
+     setSelected(event.target.value)
     setFormData({
       name:event.target.name,      
       // value:event.target.value || event.target.checked
@@ -78,34 +80,65 @@ export function BookNowForm() {
   useEffect(() => {
     
     const quote = () =>{
-      let room ;
-      let bath ;
-      let sum =0;
-      
-      setTotal(()=>{
-        if( formData.bedroom === 'N/A' ){
-        room = 0
-        bath = Number(formData.bathroom)
-        sum = (room * 50) + (bath * 20)
-        console.log(sum)
-        return sum
+      let room = Number(formData.bedroom);
+      let bath = Number(formData.bathroom);
+      // let frequency = Number(formData.cleaningFrequency)
+      // let deep = formData.cleaningType ==='Deep Cleaning'
+      // let moveInOut = formData.cleaningType ==='Move In / Move Out'
+      // let afterContruction = formData.cleaningType ==='Post construction'
+
+      let cleaningType = 0
+      if(formData.cleaningType ==='Deep Cleaning'){
+          cleaningType = 100
+      }else if(formData.cleaningType ==='Move In / Move Out'){
+          cleaningType = 150
+      }else if(formData.cleaningType ==='Post construction'){
+        cleaningType = 200
+      }else{
+        cleaningType = 0
+      }
+
+      let frequency = 1
+      if(formData.cleaningFrequency !== 1){
+        frequency = Number(formData.cleaningFrequency)
       }
       
-      if( formData.bathroom === 'N/A'){
-          bath = 0
-        room = Number(formData.bedroom)
-        sum = (room * 50) + (bath * 20)
-        console.log(sum)
-        return sum
-      }
-      if( formData.bedroom !== 'N/A' &&  formData.bathroom !== 'N/A' ){
-        bath = Number(formData.bathroom)  
-        room = Number(formData.bedroom)
-        sum = (room * 50) + (bath * 20)
-        console.log(sum)
-        return sum
-      }
-      })  
+      
+      setSubTotal(() => {
+        return (room * 50) + (bath * 30) + cleaningType 
+      })
+
+      
+      
+      
+     // let subTotal = (room * 50) + (bath * 30) + cleaningType 
+      let sum =  subTotal * frequency
+
+      setTotal(sum)
+      // setTotal(()=>{
+      //   if( formData.bedroom === 'N/A' ){
+      //   room = 0
+      //   bath = Number(formData.bathroom)
+      //   sum = (room * 50) + (bath * 20)
+      //   console.log(sum)
+      //   return sum
+      // }
+      
+      // if( formData.bathroom === 'N/A'){
+      //     bath = 0
+      //   room = Number(formData.bedroom)
+      //   sum = (room * 50) + (bath * 20)
+      //   console.log(sum)
+      //   return sum
+      // }
+      // if( formData.bedroom !== 'N/A' &&  formData.bathroom !== 'N/A' ){
+      //   bath = Number(formData.bathroom)  
+      //   room = Number(formData.bedroom)
+      //   sum = (room * 50) + (bath * 20)
+      //   console.log(sum)
+      //   return sum
+      // }
+      // })  
     
 
   };
@@ -246,7 +279,7 @@ export function BookNowForm() {
         <label>
         <p>Number of rooms</p>
             <select name="bedroom" onChange={handleChange}>
-              <option value='N/A'> Please select # of rooms</option>
+              <option value= '0'> Please select # of rooms</option>
               <option value= "1">One </option>
               <option value= "2">Two </option>
               <option value= "3">Three </option>
@@ -261,7 +294,7 @@ export function BookNowForm() {
           <label>
             <p>Number of bathrooms</p> 
             <select name="bathroom" onChange={handleChange}>
-              <option value='N/A'> Please select # of rooms</option>
+              <option value='0'> Please select # of rooms</option>
               <option value= "1">One </option>
               <option value= "2">Two </option>
               <option value= "3">Three </option>
@@ -293,23 +326,23 @@ export function BookNowForm() {
            (formData.cleaningType ==='Standard Cleaning' && <p>{cleaningDescription.standard}</p>) ||
             (formData.cleaningType ==='Deep Cleaning' && <p>{cleaningDescription.Deep}</p>) ||
             (formData.cleaningType ==='Move In / Move Out' && <p>{cleaningDescription.MoveInOut}</p>) ||
-            (formData.cleaningType ==='After construction' && <p>{cleaningDescription.AfterConstruction}</p>)
+            (formData.cleaningType ==='Post construction' && <p>{cleaningDescription.PostConstruction}</p>)
           }
 
       </div>
       </div>
-      <div onChange={handleChange} className="flexContainer radio-container">    
-          <input type="radio" value="1" name="cleaningFrequency" id="radio1"/>
+      <div onChange={handleChange} checked={selected === '1'} className="flexContainer radio-container">    
+          <input type="radio" value="1" name="cleaningFrequency" id="radio1"  />
           <label htmlFor="radio1">One time</label>
 
-          <input type="radio" value="0.20" name="cleaningFrequency" id="radio2"/>
-          <label htmlFor="radio2">Weekly</label>
+          <input type="radio" value="0.8" name="cleaningFrequency" id="radio2"/>
+          <label htmlFor="radio2">Weekly (-20%)</label>
 
-          <input type="radio" value="0.15" name="cleaningFrequency" id="radio3"/>
-          <label htmlFor="radio3">Biweekly</label>
+          <input type="radio" value="0.85"  name="cleaningFrequency" id="radio3"/>
+          <label htmlFor="radio3">Biweekly (-15%)</label>
 
-          <input type="radio" value="0.10" name="cleaningFrequency" id="radio4"/>
-          <label htmlFor="radio4">Monthly</label>
+          <input type="radio" value="0.9"   name="cleaningFrequency" id="radio4"/>
+          <label htmlFor="radio4">Monthly (-10%)</label>
         
       </div>
       </fieldset>
@@ -386,7 +419,7 @@ export function BookNowForm() {
             </div>
             <div className="elementRight">
               {
-              formData.window.checked = 'true'   && 
+              formData.window   && 
                 
                 <label>
                   # of window
