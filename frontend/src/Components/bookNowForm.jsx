@@ -40,7 +40,8 @@ export function BookNowForm() {
   const [submitting, setSubmitting] = useState(false);
   const [total, setTotal] = useState(0);
   const [subTotal, setSubTotal] = useState(0)
-  const [selected, setSelected] = useState(1)
+  // const [discount, setDiscount] = useState(0)
+  // const [tip, setTip] = useState(0)
   
   
     
@@ -60,7 +61,7 @@ export function BookNowForm() {
   //  const target = event.target;
   //   const value = target.type === 'checkbox' ? target.checked : target.value;
   //   const name = target.name;
-     setSelected(event.target.value)
+    //  setSelected(event.target.value)
     setFormData({
       name:event.target.name,      
       // value:event.target.value || event.target.checked
@@ -80,12 +81,30 @@ export function BookNowForm() {
   useEffect(() => {
     
     const quote = () =>{
-      let room = Number(formData.bedroom);
+      // let room = Number(formData.bedroom);
       let bath = Number(formData.bathroom);
       // let frequency = Number(formData.cleaningFrequency)
       // let deep = formData.cleaningType ==='Deep Cleaning'
       // let moveInOut = formData.cleaningType ==='Move In / Move Out'
       // let afterContruction = formData.cleaningType ==='Post construction'
+
+      let priceByRoom = 0
+
+       if(formData.bedroom === '0'){
+          priceByRoom = 0
+       }else if(formData.bedroom === '1'){
+          priceByRoom = 120
+       }else if(formData.bedroom === '2'){
+          priceByRoom = 140
+       }else if(formData.bedroom === '3'){
+          priceByRoom = 175
+       }else if(formData.bedroom === '4'){
+          priceByRoom = 212
+       }else if(formData.bedroom === '5'){
+          priceByRoom = 260
+       }else if(formData.bedroom === '6'){
+          priceByRoom = 300
+       }
 
       let cleaningType = 0
       if(formData.cleaningType ==='Deep Cleaning'){
@@ -98,23 +117,32 @@ export function BookNowForm() {
         cleaningType = 0
       }
 
-      let frequency = 1
-      if(formData.cleaningFrequency !== 1){
-        frequency = Number(formData.cleaningFrequency)
-      }
+      // let frequency = 1
+      // if( typeof formData.cleaningFrequency === 'undefined'){
+      //   frequency = 1
+      // }else{
+      //   frequency = Number(formData.cleaningFrequency)
+      // }
+      let discount = formData.cleaningFrequency
+      // setDiscount(    formData.cleaningFrequency   )
       
       
       setSubTotal(() => {
-        return (room * 50) + (bath * 30) + cleaningType 
+        return priceByRoom + (bath * 30) + cleaningType 
       })
 
       
-      
+      setTotal(()=>{
+        return subTotal * discount
+      })
       
      // let subTotal = (room * 50) + (bath * 30) + cleaningType 
-      let sum =  subTotal * frequency
+      // let sum =  subTotal * frequency
 
-      setTotal(sum)
+      // setTotal(sum)
+      setTotal(() =>{        
+        return subTotal * discount
+      })
       // setTotal(()=>{
       //   if( formData.bedroom === 'N/A' ){
       //   room = 0
@@ -331,8 +359,8 @@ export function BookNowForm() {
 
       </div>
       </div>
-      <div onChange={handleChange} checked={selected === '1'} className="flexContainer radio-container">    
-          <input type="radio" value="1" name="cleaningFrequency" id="radio1"  />
+      <div onChange={handleChange} value = '1' defaultChecked className="flexContainer radio-container">    
+          <input type="radio" value='1' defaultChecked name="cleaningFrequency" id="radio1"  />
           <label htmlFor="radio1">One time</label>
 
           <input type="radio" value="0.8" name="cleaningFrequency" id="radio2"/>
@@ -442,11 +470,23 @@ export function BookNowForm() {
       }
      
       <div>
-        <label>
+        {/* <label>
           total
           <input
           
             value= {isNaN(total) ? 0 : total } readOnly/>
+        </label> */}
+        <label>
+          Subtotal
+          <input value={subTotal} readOnly/>
+        </label>
+        <label>
+          discount
+          <input value={isNaN(formData.cleaningFrequency) ? 0 : formData.cleaningFrequency } readOnly/>
+        </label>
+        <label>
+          Total
+          <input value= {isNaN(total) ? 0 : total } readOnly/>
         </label>
       </div>
       <div className="flexContainer">
