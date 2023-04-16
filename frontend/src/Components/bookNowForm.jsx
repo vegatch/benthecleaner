@@ -1,5 +1,6 @@
 import React, {useReducer, useState, useEffect} from "react";
 import "../CSS/bookingNowForm.css";
+import logo from '../pics/logo.png'
 
 // import { useState, useRef } from 'react'
 // import { useRef } from "react";
@@ -70,23 +71,16 @@ export function BookNowForm() {
   }
 
 
-  // const quote = () =>{
-  //   let room = Number(formData.bedroom)
-  //   let bath = Number(formData.bathroom)
-  //   let sum = (room * 50) + (bath * 20)
-  //   console.log(sum)
-  //   setTotal(sum)    
-  // }
 
   useEffect(() => {
     
     const quote = () =>{
-      // let room = Number(formData.bedroom);
+     
       let bath = Number(formData.bathroom);
-      // let frequency = Number(formData.cleaningFrequency)
-      // let deep = formData.cleaningType ==='Deep Cleaning'
-      // let moveInOut = formData.cleaningType ==='Move In / Move Out'
-      // let afterContruction = formData.cleaningType ==='Post construction'
+      let oven = isNaN(formData.numberOfOven) ? 0:  Number(formData.numberOfOven) * 40
+      let fridge = isNaN(formData.numberOfFridge) ? 0:  Number(formData.numberOfFridge) * 40
+      let window = isNaN(formData.numberOfWindow) ? 0:  Number(formData.numberOfWindow) * 10
+
 
       let priceByRoom = 0
 
@@ -112,71 +106,82 @@ export function BookNowForm() {
       }else if(formData.cleaningType ==='Move In / Move Out'){
           cleaningType = 150
       }else if(formData.cleaningType ==='Post construction'){
-        cleaningType = 200
+        cleaningType = 220
       }else{
         cleaningType = 0
       }
 
-      // let frequency = 1
-      // if( typeof formData.cleaningFrequency === 'undefined'){
-      //   frequency = 1
-      // }else{
-      //   frequency = Number(formData.cleaningFrequency)
-      // }
-      let discount = formData.cleaningFrequency
-      // setDiscount(    formData.cleaningFrequency   )
       
+      let discount = formData.cleaningFrequency   
       
-      setSubTotal(() => {
-        return priceByRoom + (bath * 30) + cleaningType 
+      let sum = priceByRoom + (bath * 30) + oven + fridge  + window + cleaningType 
+      
+      setSubTotal((prev) => {
+        console.log('In Subtotal',sum)
+        return sum
+
       })
+      
 
       
-      setTotal(()=>{
-        return subTotal * discount
-      })
-      
-     // let subTotal = (room * 50) + (bath * 30) + cleaningType 
-      // let sum =  subTotal * frequency
-
-      // setTotal(sum)
-      setTotal(() =>{        
-        return subTotal * discount
-      })
-      // setTotal(()=>{
-      //   if( formData.bedroom === 'N/A' ){
-      //   room = 0
-      //   bath = Number(formData.bathroom)
-      //   sum = (room * 50) + (bath * 20)
-      //   console.log(sum)
-      //   return sum
-      // }
-      
-      // if( formData.bathroom === 'N/A'){
-      //     bath = 0
-      //   room = Number(formData.bedroom)
-      //   sum = (room * 50) + (bath * 20)
-      //   console.log(sum)
-      //   return sum
-      // }
-      // if( formData.bedroom !== 'N/A' &&  formData.bathroom !== 'N/A' ){
-      //   bath = Number(formData.bathroom)  
-      //   room = Number(formData.bedroom)
-      //   sum = (room * 50) + (bath * 20)
-      //   console.log(sum)
-      //   return sum
-      // }
-      // })  
+      setTotal((prev)=>{  
+        console.log('sum In Settotal',sum)    
+        console.log('subtotal In setTotal',subTotal)          
+        return sum * discount
+      })     
+     
     
 
   };
+
     quote();
     
   }, [formData])
 
+  const myDate = new Date()
 
-  
- 
+  const dateToClean = new Date(formData.cleaningDate)
+
+
+  let month = (month)=>{
+    switch(month){
+    case 0:
+      return "Jan";
+    case 1:
+      return "Feb";
+    case 2:
+      return "Mar";
+    case 3:
+      return "Apr";
+    case 4:
+      return "May";
+    case 5:
+      return "Jun";
+    case 6:
+      return "Jul";
+    case 7:
+      return "Aug";
+    case 8:
+      return "Sep";
+    case 9:
+      return "Oct";
+    case 10:
+      return "Nov";
+    case 11:
+      return "Dec";
+    default:
+      return 'n/a';
+  }
+}
+  const myCurrentDate = `
+  ${myDate.getDate()}-
+  ${month(myDate.getMonth())}-
+  ${myDate.getFullYear()}`;
+
+ const sheduledCleaning = `
+  ${dateToClean.getDate()}-
+  ${month(dateToClean.getMonth())}-
+  ${dateToClean.getFullYear()}`;
   return(
     
     <div>
@@ -374,8 +379,8 @@ export function BookNowForm() {
         
       </div>
       </fieldset>
-      {
-        formData.cleaningType ==='Standard Cleaning' ? 
+      {/* {
+        formData.cleaningType ==='Standard Cleaning' ?  */}
          <fieldset className="fieldset-container">
         <legend className="legend">Extra service</legend>
         <div className="extraContainer">
@@ -383,7 +388,7 @@ export function BookNowForm() {
           <div className="checkedContainer">
             <div className="elementLeft">
                 <div className="leftContainer">
-                  <label htmlFor="oven">Inside the oven</label>
+                  <label htmlFor="oven">Inside the oven (+$40)</label>
                   <input 
                     name="oven"
                     type="checkbox" 
@@ -399,6 +404,7 @@ export function BookNowForm() {
                   # of oven
                   <input 
                     type="number"
+                    min = '0'
                     name="numberOfOven"              
                     onChange={handleChange}
                   />
@@ -410,7 +416,7 @@ export function BookNowForm() {
           <div className="checkedContainer">
             <div className="elementLeft">
                 <div className="leftContainer">
-                  <label htmlFor="fridge">Inside the fridge</label>
+                  <label htmlFor="fridge">Inside the fridge (+$40)</label>
                   <input 
                     name="fridge"
                     type="checkbox" 
@@ -426,6 +432,7 @@ export function BookNowForm() {
                   # of fridge
                   <input 
                     type="number"
+                    min = '0'
                     name="numberOfFridge"              
                     onChange={handleChange}
                   />
@@ -453,6 +460,7 @@ export function BookNowForm() {
                   # of window
                   <input 
                     type="number"
+                    min = '0'
                     name="numberOfWindow"              
                     onChange={handleChange}
                   />
@@ -462,12 +470,69 @@ export function BookNowForm() {
             
           </div>
           </div>
+          <div className="checkedContainer">
+            <div className="elementLeft">
+                <div className="leftContainer">
+                  <label htmlFor="window">Ceiling fans (+$5)</label>
+                  <input 
+                    name="fan"
+                    type="checkbox" 
+                    onChange={handleChange}
+                  />
+                </div>
+            </div>
+            <div className="elementRight">
+              {
+              formData.fan   && 
+                
+                <label>
+                  # of ceiling fans
+                  <input 
+                    type="number"
+                    name="numberOfFans"    
+                    min = '0'          
+                    onChange={handleChange}
+                  />
+                </label>
+            }
+            </div>
+            
+          </div>
+          <div className="checkedContainer">
+            <div className="elementLeft">
+                <div className="leftContainer">
+                  <label htmlFor="window">Load of laundry (+$35)</label>
+                  <input 
+                    name="laundry"
+                    type="checkbox" 
+                    onChange={handleChange}
+                  />
+                </div>
+            </div>
+            <div className="elementRight">
+              {
+              formData.laundry   && 
+                
+                <label>
+                  # of laundry load 
+                  <input 
+                    type="number"
+                    defaultValue='0'
+                    name="numberOfLaundry"    
+                    min = '0'          
+                    onChange={handleChange}
+                  />
+                </label>
+            }
+            </div>
+            
+          </div>
           <div className="extraRight"></div>
 
         </div>
       </fieldset>
-      :''
-      }
+      {/* :''
+      } */}
      
       <div>
         {/* <label>
@@ -494,18 +559,18 @@ export function BookNowForm() {
             <label>
               Date:
               <input 
-                name="selectDate"
+                name="cleaningDate"
                 onChange={handleChange}
                 type='date'
               />
             </label>
           </div>
           {
-            formData.selectDate  ? 
+            formData.cleaningDate  ? 
             <div className="flex-element"> 
             <label>
               Time:
-              <select name='selectTime' onChange={handleChange}>
+              <select name='cleaningTime' onChange={handleChange}>
                     {
                       times.map( (time, index) => 
                        <option key={index}>{time}</option> )
@@ -518,6 +583,77 @@ export function BookNowForm() {
        
       </div>
       <button type="Submit">Submit</button>
+
+      <div className="quato">
+          <div className="quote-header">
+            <div className="firstRow">
+              <div className="firstRowLeft">
+                <img alt="benska logo" src={logo}/>
+                <p>Benskya Cleaning Services</p>
+                <p>www.benskyacleaningservices.com</p>
+                <p>(786) 247-2127</p>
+
+              </div>
+              <div className="firstRowRight">
+                  <p> Benskya Quotation</p>
+                  <p> Residential Cleaning Services</p>
+
+              </div>
+
+            </div>
+            <div className="line"> </div>
+            <div className="secondRow">
+               <div className="secondRowLeftt">
+                <div className="nameContainer">
+                  <p>{formData.firstName} </p>
+                  <p>{formData.middleName} </p>
+                  <p> {formData.lastName }</p>
+                </div>
+                <div className="AdressContainer">
+                  <p>{formData.streetName} </p>
+                  <div className="cityStateContainer">
+                    <p>{formData.city} </p>
+                    <p> {formData.state }</p>
+                    <p> {formData.zipCode }</p>
+                  </div>
+                </div>
+              </div>
+              <div className="secondRowRight">
+                    <p>Quote number: 001</p>
+                    <p>Quote date: {myCurrentDate}</p>
+                    <p>Cleaning date: ` {sheduledCleaning} at {formData.cleaningTime}`</p>
+                  
+              </div>
+            </div>
+
+
+          </div>
+          <div className="quote-body">
+            <h1>Quotation - only</h1>
+            <div className="quote_table">
+              <div className="table_left">
+                  <p>Description</p>
+              </div>
+              <div className="table_center">
+              </div>
+              <div className="table_right">
+                <p>Amount</p>
+               </div>
+            </div>
+          </div>
+          <div className="quote-footer">
+
+          </div>
+        
+        <div>
+          
+        </div>
+        <div className="quoteTable">
+          
+
+        </div>
+
+      </div>
       
 
 

@@ -108,5 +108,53 @@ input[type='date']{
 }
 
 .leftContainer label{
-    width:70%
+    width:100%
+}
+
+.quato{
+    margin-top: 3rem;
+}
+
+.firstRow,
+.secondRow{
+    display: flex;
+    justify-content: space-between;
+    /* align-items:baseline; */
+    /* background-color:red; */
+    margin-bottom: auto;
+}
+
+.firstRow > .firstRowRight{
+    margin-top: auto;
+
+}
+
+
+.firstRowLeft img{
+    width:8rem;
+}
+/* .line{
+    border-bottom: .1rem solid black;
+    margin-top: 2rem;
+} */
+
+.nameContainer,
+.cityStateContainer{
+    display:flex
+}
+
+.secondRow{
+    margin-top:1rem;
+}
+
+.secondRow p{
+    margin-right: .2rem;
+    margin-bottom: .2rem;
+}
+
+.quote-body h1{
+    font-size: 1.4rem;
+    text-align:center;
+    font-weight:bolder;
+    margin: 2rem 0;
 }
