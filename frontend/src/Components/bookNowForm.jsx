@@ -70,7 +70,9 @@ export function BookNowForm() {
     })      
   }
 
-
+  
+  const bedroomString = formData.bedroom === '1' || formData.bedroom === 0 ? 'bedroom': 'bedrooms' 
+  const bathroomString = formData.bathroom === '1' || formData.bathroom === 0 ? 'bathroom': 'bathrooms' 
 
   useEffect(() => {
     
@@ -604,6 +606,7 @@ export function BookNowForm() {
             <div className="line"> </div>
             <div className="secondRow">
                <div className="secondRowLeftt">
+                  <p>Specially quoted for :</p>
                 <div className="nameContainer">
                   <p>{formData.firstName} </p>
                   <p>{formData.middleName} </p>
@@ -621,7 +624,7 @@ export function BookNowForm() {
               <div className="secondRowRight">
                     <p>Quote number: 001</p>
                     <p>Quote date: {myCurrentDate}</p>
-                    <p>Cleaning date: ` {sheduledCleaning} at {formData.cleaningTime}`</p>
+                    <p>Cleaning date:  {sheduledCleaning} at {formData.cleaningTime}</p>
                   
               </div>
             </div>
@@ -631,14 +634,27 @@ export function BookNowForm() {
           <div className="quote-body">
             <h1>Quotation - only</h1>
             <div className="quote_table">
-              <div className="table_left">
-                  <p>Description</p>
+              <div className="table_header">
+                <div className="tableHeader_left">
+                    <p>Description</p>
+                </div>                
+                <div className="tableHeader_right">
+                  <p>Amount</p>
+                </div>
+
               </div>
-              <div className="table_center">
+              <div className="table_raw">
+                <div className="table_left">
+                   <p>
+                    {formData.cleaningType} of a property of {formData.bedroom } {bedroomString} and {formData.bathroom} {bathroomString}
+                   </p>
+                    
+                </div>                
+                <div className="table_right">
+                  <p>Amount</p>
+                </div>
+
               </div>
-              <div className="table_right">
-                <p>Amount</p>
-               </div>
             </div>
           </div>
           <div className="quote-footer">
