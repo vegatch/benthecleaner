@@ -113,10 +113,11 @@ export function BookNowForm() {
         cleaningType = 0
       }
 
+      let priceSquareFeet = Number(formData.squareFootage) > 1000 ?  Math.round((formData.squareFootage - 1000) * 0.04) : 0
       
       let discount = formData.cleaningFrequency   
       
-      let sum = priceByRoom + (bath * 30) + oven + fridge  + window + cleaningType 
+      let sum = priceByRoom + (bath * 30) + priceSquareFeet + oven + fridge  + window + cleaningType 
       
       setSubTotal((prev) => {
         console.log('In Subtotal',sum)
@@ -185,8 +186,15 @@ export function BookNowForm() {
   ${month(dateToClean.getMonth())}-
   ${dateToClean.getFullYear()}`;
   return(
-    
-    <div>
+
+    <div className="main-container">     
+      <header className="head-page">
+          <p>i am the head page</p>
+      </header>
+      <div className="book-flex-container">
+        <section className="section-left">
+          <p>i am the left section in the page</p>
+           <div>
     console.log(formData)
         {submitting &&
        <div>
@@ -339,6 +347,18 @@ export function BookNowForm() {
             </select>
           </label>         
         </div>
+      <div className="flex-element">     
+          <label>
+              <p>Square footage og the property</p>
+              <input 
+                name="squareFootage"
+                placeholder="enter the square footage of your property"
+                type='integer'
+                onChange={handleChange}
+              />
+            </label>     
+        </div>
+
 
      </div>
       </fieldset>
@@ -651,7 +671,7 @@ export function BookNowForm() {
                     
                 </div>                
                 <div className="table_right">
-                  <p>Amount</p>
+                  <p>{subTotal}</p>
                 </div>
 
               </div>
@@ -675,5 +695,39 @@ export function BookNowForm() {
 
       </form>
     </div>
+        </section>
+        <section className="section-middle"></section>
+        <section className="section-right">
+          <div className="right-top">            
+            <p>Top</p>
+          </div>
+          <div className="right-bottom">
+            <div className="right-bottom-top">
+              <p>Book Summary</p>
+            </div>
+            <div className="quoteSummary">
+              <div className="quoteLeft">
+                Cleaning type:
+              </div>
+              <div className="quoteRight">
+                {formData.cleaningType}
+              </div>              
+            </div>  
+            <div className="quoteSummary">
+              <div className="quoteLeft">
+                frequency:
+              </div>
+              <div className="quoteRight">
+                {formData.cleaningFrequency}
+              </div>              
+            </div>  
+
+          </div>
+        </section>
+      </div>
+    </div>
+    // to add
+    
+   
   )
 }

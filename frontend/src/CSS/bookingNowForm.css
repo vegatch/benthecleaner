@@ -117,7 +117,8 @@ input[type='date']{
 
 .firstRow,
 .secondRow,
-.table_header{
+.table_header,
+.table_raw{
     display: flex;
     justify-content: space-between;
     /* align-items:baseline; */
@@ -161,7 +162,8 @@ input[type='date']{
     margin: 2rem 0;
 }
 
-.table_header{
+.table_header,
+.table_raw{
     width:80%;
     margin:auto;
     padding:.5rem 0;

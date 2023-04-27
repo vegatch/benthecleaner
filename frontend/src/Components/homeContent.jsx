@@ -1,5 +1,6 @@
 import React from "react";
-import hero from '../pics/house-cleaning.jpg'
+// import hero from '../pics/house-cleaning.jpg'
+import hero from '../pics/benskya_Background.png'
 import "../CSS/home.css";
 // import Button from "./btn";
 import {  NavLink } from "react-router-dom";
@@ -29,7 +30,7 @@ const homeContentsDetail = [
 
 const myStyle={     
     backgroundImage:`linear-gradient( rgba(8, 8, 8, 0.85), rgba(0, 15, 80, 0.675)), url("${hero}")`,
-    height:'70vh',    
+    height:'75vh',    
     fontSize:'50px',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
@@ -43,12 +44,23 @@ return (
                 {/* <img src={hero} alt="cleaning" /> */}
                 </div>
                 <div className="subtitle">
-                {homeContentsDetail.map(({ id, Description }) => (
+                    <div className="motto">
+                       <p>
+                            Professional, affordable, insured and bonded cleaning services in Indianapolis and surroundings
+                       </p>  
+                       {homeContentsDetail.map(({ id, Description }) => (
                     <p key={id}> {Description} </p>         
                 ))}
-                <button type="button" className="btn btn-main">
-                    <NavLink to= '/bookNow'>Book Now</NavLink>
-                </button>
+                    </div>
+                    <div>
+                        <button type="button" className="btn btn-main">
+                            <NavLink to= '/bookNow'>Book Now</NavLink>
+                        </button>
+                    </div>
+                    
+                {/* {homeContentsDetail.map(({ id, Description }) => (
+                    <p key={id}> {Description} </p>         
+                ))} */}
                 
                 {/* <button type="button">Call now</button> */}
                 </div>
