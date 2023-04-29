@@ -1,11 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,700&display=swap');
+
 :root {
   --bg-color-pages: #f5f0e1;
   --bg-color-navbar: #1e3d53;
   --bg-color-highlight:#ff6e40;
   /* --blur: 10px; */
 }
+
+
 body{
     background-color: var(--bg-color-pages);
     width:100vw;
+    font-family: 'Roboto', sans-serif;    
+    line-height: 1.2;
     
 }
+

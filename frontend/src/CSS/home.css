@@ -1,4 +1,7 @@
 
+
+
+
 .home-container{
     /* height:vh;    */
      width:100vw; 
@@ -97,4 +100,29 @@
     font-weight:bolder;
     /* text-shadow: 2px 2px 1px white; */
     padding: 1rem 0;
+}
+
+.section-flex{
+    display:flex;
+    width:90%;
+    margin: 0 auto
+    
+}
+
+.home-section-right,
+.home-section-left{
+    width:50%;
+    flex: 1; 
+    padding: 10px;
+    
+}
+
+.home-section-left p{
+    font-size: 1.4rem;
+    padding: .5rem 0;
+    
+}
+
+.section-img{
+    width:100%
 }
