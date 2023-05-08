@@ -4,7 +4,7 @@ import {BookNowForm} from "../Components/bookNowForm";
 
 const BookNow = () => {
   return (
-   <div>
+   <div className="main-container">
           <BookNowForm />
    </div>
         

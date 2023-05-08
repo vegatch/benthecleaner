@@ -1,11 +1,14 @@
 
 import React from "react";
-import {  NavLink } from "react-router-dom";
-import background from '../pics/house-cleaning.jpg'
-import { HomeContent } from "../Components/homeContent";
-import { ActionContent } from "../Components/actionContent";
-import '../CSS/home.css';
 
+import background from '../pics/house-cleaning.jpg'
+import { CallToAction } from "../Components/callToAction";
+import { Section } from "../Components/section";
+import { HeadContent } from "../Components/headContent";
+import '../CSS/home.css';
+import { WhyBenskya } from "../Components/whyBenskya";
+
+const introMsg = 'Professional, affordable, insured and bonded cleaning services in Indianapolis and surroundings'
 const sectionOne = [
  {
 	id: 1,
@@ -36,36 +39,21 @@ Benskya is a family owned cleaning company operating in Indianapolis and surroun
 ]
 const Home = () => {
   return (
-    <div>     
-      {/* <h1> Welcome to our home page</h1> */}
+    <div className="main-container">     
+      
         <div>
-            <HomeContent/>            
-        </div>
-        <div className="banner">
-          <div className="banner-link">
-            <NavLink to= '/bookNow'>Book now online</NavLink>
-          </div>
-          <div className="banner-text">
-            <p>Or</p>
-          </div>
-          <div className="banner-text">
-            <p>Call 786-247-2127 to book</p>
-          </div>
-          
+            <HeadContent text={introMsg}/>            
         </div>
         <div>
-            <ActionContent/>            
+          <CallToAction />
+        </div>       
+        <div>
+          <Section  arrayObject= {sectionOne} imgUrl={background}/>  
         </div>
-        <div className="section-flex">
-            <div className="home-section-left">
-              {sectionOne.map(({ id, Description }) => (
-                    <p key={id}> {Description} </p>         
-                ))}
-            </div>
-            <div className="home-section-right">
-               <img className="section-img" src={background} alt='cleaning supplies'/>
-            </div>
+        <div>
+          <WhyBenskya />
         </div>
+        
         
     </div>
   );

@@ -10,7 +10,7 @@
 
 body{
     background-color: var(--bg-color-pages);
-    width:100vw;
+    /* width:inherit; */
     font-family: 'Roboto', sans-serif;    
     line-height: 1.2;
     

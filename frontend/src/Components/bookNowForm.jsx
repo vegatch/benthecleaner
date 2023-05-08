@@ -113,6 +113,10 @@ export function BookNowForm() {
         cleaningType = 0
       }
 
+  
+
+      
+
       let priceSquareFeet = Number(formData.squareFootage) > 1000 ?  Math.round((formData.squareFootage - 1000) * 0.04) : 0
       
       let discount = formData.cleaningFrequency   
@@ -125,12 +129,11 @@ export function BookNowForm() {
 
       })
       
-
       
       setTotal((prev)=>{  
         console.log('sum In Settotal',sum)    
         console.log('subtotal In setTotal',subTotal)          
-        return sum * discount
+        return Math.round(Number(sum * discount))
       })     
      
     
@@ -177,21 +180,50 @@ export function BookNowForm() {
   }
 }
   const myCurrentDate = `
-  ${myDate.getDate()}-
-  ${month(myDate.getMonth())}-
+  ${myDate.getDate()} -
+  ${month(myDate.getMonth())} -
   ${myDate.getFullYear()}`;
 
  const sheduledCleaning = `
-  ${dateToClean.getDate()}-
-  ${month(dateToClean.getMonth())}-
+  ${dateToClean.getDate()} -
+  ${month(dateToClean.getMonth())} -
   ${dateToClean.getFullYear()}`;
+
+
+      let frequencyString = ''
+      
+      if(formData.cleaningFrequency ==='1'){
+          frequencyString = 'One time'
+      }else if(formData.cleaningFrequency ==='0.8'){
+          frequencyString = 'Weekly'
+      }else if(formData.cleaningFrequency ==='0.85'){
+        frequencyString = 'Biweekly'
+      }else if(formData.cleaningFrequency ==='0.9'){
+        frequencyString = 'Monthly'
+      }else{
+        frequencyString = 'N/A'
+      }
+
+       let discountString = '';
+      if(formData.cleaningFrequency ==='1'){
+          discountString = '0%'
+      }else if(formData.cleaningFrequency ==='0.8'){
+          discountString = '20%'
+      }else if(formData.cleaningFrequency ==='0.85'){
+          discountString = '15%'
+      }else if(formData.cleaningFrequency ==='0.9'){
+          discountString = '10%'
+      }else{
+        discountString = '0%'
+      }
+     
   return(
 
-    <div className="main-container">     
+    <div className="book-container">     
       <header className="head-page">
           <p>i am the head page</p>
       </header>
-      <div className="book-flex-container">
+      <div className="form-section-container">
         <section className="section-left">
           <p>i am the left section in the page</p>
            <div>
@@ -386,7 +418,7 @@ export function BookNowForm() {
 
       </div>
       </div>
-      <div onChange={handleChange} value = '1' defaultChecked className="flexContainer radio-container">    
+      <div onChange={handleChange}  defaultChecked className="flexContainer radio-container">    
           <input type="radio" value='1' defaultChecked name="cleaningFrequency" id="radio1"  />
           <label htmlFor="radio1">One time</label>
 
@@ -466,7 +498,7 @@ export function BookNowForm() {
           <div className="checkedContainer">
             <div className="elementLeft">
                 <div className="leftContainer">
-                  <label htmlFor="window">Inside the window</label>
+                  <label htmlFor="window">Inside the window (+$5)</label>
                   <input 
                     name="window"
                     type="checkbox" 
@@ -523,7 +555,7 @@ export function BookNowForm() {
           <div className="checkedContainer">
             <div className="elementLeft">
                 <div className="leftContainer">
-                  <label htmlFor="window">Load of laundry (+$35)</label>
+                  <label htmlFor="laundry">Load of laundry (+$35)</label>
                   <input 
                     name="laundry"
                     type="checkbox" 
@@ -675,6 +707,40 @@ export function BookNowForm() {
                 </div>
 
               </div>
+              <div className="table_raw">
+                <div className="table_left">
+                   <p>                    
+                    Subtotal
+                   </p>                    
+                </div>                
+                <div className="table_right">
+                  <p>{subTotal}</p>
+                </div>
+
+              </div>
+              <div className="table_raw">
+                <div className="table_left">
+                  
+                  {discountString === '0%' ? '' : <p>Discount </p>}
+                                    
+                </div>                
+                <div className="table_right">
+                  {discountString === '0%' ? '' : <p>{discountString}</p>}
+                </div>
+
+              </div>
+              <div className="table_raw">
+                <div className="table_left">
+                   <p>                    
+                    Grand Total
+                   </p>                    
+                </div>                
+                <div className="table_right">
+                   <p>{total}</p>     
+                    {/* {isNaN(total) ? 'subtotal': {total}}          */}
+                </div>
+
+              </div>
             </div>
           </div>
           <div className="quote-footer">
@@ -696,7 +762,7 @@ export function BookNowForm() {
       </form>
     </div>
         </section>
-        <section className="section-middle"></section>
+        {/* <section className="section-middle"></section> */}
         <section className="section-right">
           <div className="right-top">            
             <p>Top</p>
@@ -707,7 +773,7 @@ export function BookNowForm() {
             </div>
             <div className="quoteSummary">
               <div className="quoteLeft">
-                Cleaning type:
+                Cleaning requested:
               </div>
               <div className="quoteRight">
                 {formData.cleaningType}
@@ -715,10 +781,26 @@ export function BookNowForm() {
             </div>  
             <div className="quoteSummary">
               <div className="quoteLeft">
+                Property:
+              </div>
+              <div className="quoteRight">
+                {formData.bedroom } {bedroomString} and {formData.bathroom} {bathroomString}
+              </div>              
+            </div>  
+            <div className="quoteSummary">
+              <div className="quoteLeft">
                 frequency:
               </div>
               <div className="quoteRight">
-                {formData.cleaningFrequency}
+                {frequencyString}
+              </div>              
+            </div>  
+            <div className="quoteSummary">
+              <div className="quoteLeft">
+                Cleaning Date:
+              </div>
+              <div className="quoteRight">
+                {sheduledCleaning} at {formData.cleaningTime}
               </div>              
             </div>  
 
@@ -726,7 +808,7 @@ export function BookNowForm() {
         </section>
       </div>
     </div>
-    // to add
+    
     
    
   )

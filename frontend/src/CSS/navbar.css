@@ -1,13 +1,7 @@
-/* .nav-container{
-    background-color: #1e3d53;
-    height: 10vh;
-    display:flex;    
-    align-items:center;
-    font-size: 1.3rem
-} */
+
 
 .nav-container{    
-    width:100vw;    
+    width:inherit;    
     height: 10vh;    
     font-size:1.3rem;    
 }
@@ -35,7 +29,7 @@
     list-style-type: none;
     text-decoration: none;
     color:white;   
-    margin-left:1rem 
+    margin-left:1rem; 
 }
 
 .header li .active {

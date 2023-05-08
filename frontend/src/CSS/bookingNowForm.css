@@ -169,3 +169,25 @@ input[type='date']{
     padding:.5rem 0;
     border-bottom: 1px solid black;
 }
+
+.elementLeft{
+    /* background-color:red; */
+    width:85%;
+}
+
+.leftContainer{
+    width:100%;
+    margin:.2rem 0;
+}
+
+
+
+.quoteSummary{
+    display: flex;
+    margin:1rem 0;
+    /* background-color:red; */
+}
+
+.quoteLeft{
+    margin-right:.5rem;
+}
