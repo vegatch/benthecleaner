@@ -25,11 +25,8 @@ fieldset,
     display:flex;
     justify-content:space-between;
     padding:.8rem 0;
-    align-items:center;
-
-    
+    align-items:center;    
 }
-
 
 
 .second-row .box4,
@@ -168,6 +165,10 @@ input[type='date']{
     margin:auto;
     padding:.5rem 0;
     border-bottom: 1px solid black;
+}
+
+.subTotal_Row{
+    /* border: none; */
 }
 
 .elementLeft{

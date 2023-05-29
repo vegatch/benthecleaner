@@ -1,4 +1,5 @@
 import React, {useReducer, useState, useEffect} from "react";
+import {idGenerator} from "./idGenetarion";
 import "../CSS/bookingNowForm.css";
 import logo from '../pics/logo.png'
 
@@ -8,6 +9,15 @@ import logo from '../pics/logo.png'
 
 import "../CSS/book.css";
 
+const HideDiv = {
+   display:'none'
+
+}
+
+const ShowDiv = {
+   display:'block'
+   
+}
 const times = ['Please select a time','8:00 AM', '11:00 AM', '1:00 PM']
 
 const cleaningTypes = [
@@ -79,9 +89,47 @@ export function BookNowForm() {
     const quote = () =>{
      
       let bath = Number(formData.bathroom);
-      let oven = isNaN(formData.numberOfOven) ? 0:  Number(formData.numberOfOven) * 40
-      let fridge = isNaN(formData.numberOfFridge) ? 0:  Number(formData.numberOfFridge) * 40
-      let window = isNaN(formData.numberOfWindow) ? 0:  Number(formData.numberOfWindow) * 10
+      // let oven = isNaN(formData.numberOfOven) ? 0:  Number(formData.numberOfOven) * 40
+      // let fridge = isNaN(formData.numberOfFridge) ? 0:  Number(formData.numberOfFridge) * 40
+      // let fridge = formData.fridge.checked ? Number(formData.numberOfFridge) * 40 : 0
+      let oven = ''
+      if(formData.oven === true){
+        oven = isNaN(formData.numberOfOven) ? 0:  Number(formData.numberOfOven) * 40 
+      }else{
+        formData.numberOfOven = 0
+        oven = 0
+      }
+
+      let fridge = ''
+      if(formData.fridge === true){
+        fridge = isNaN(formData.numberOfFridge) ? 0:  Number(formData.numberOfFridge) * 40 
+      }else{
+        fridge = 0
+      }
+
+      let window = ''
+      if(formData.window === true){
+        window = isNaN(formData.numberOfWindow) ? 0:  Number(formData.numberOfWindow) * 5 
+      }else{
+        window = 0
+      }
+      
+      // let window = isNaN(formData.numberOfWindow) ? 0:  Number(formData.numberOfWindow) * 5
+      // let fan = isNaN(formData.numberOfFans) ? 0:  Number(formData.numberOfFans) * 5
+      let fan = ''
+      if(formData.fan === true){
+        fan = isNaN(formData.numberOfFans) ? 0:  Number(formData.numberOfFans) * 5 
+      }else{
+        fan = 0
+      }
+      
+      // let laundry = isNaN(formData.numberOfLaundry) ? 0:  Number(formData.numberOfLaundry) * 35
+      let laundry = ''
+      if(formData.laundry === true){
+        laundry = isNaN(formData.numberOfLaundry) ? 0:  Number(formData.numberOfLaundry) * 35 
+      }else{
+        laundry = 0
+      }
 
 
       let priceByRoom = 0
@@ -119,9 +167,10 @@ export function BookNowForm() {
 
       let priceSquareFeet = Number(formData.squareFootage) > 1000 ?  Math.round((formData.squareFootage - 1000) * 0.04) : 0
       
-      let discount = formData.cleaningFrequency   
+      // let discount = formData.cleaningFrequency  
+      let discount = isNaN(formData.cleaningFrequency) ? 1 : formData.cleaningFrequency
       
-      let sum = priceByRoom + (bath * 30) + priceSquareFeet + oven + fridge  + window + cleaningType 
+      let sum = priceByRoom + (bath * 30) + priceSquareFeet + oven + fridge  + window + fan + laundry + cleaningType 
       
       setSubTotal((prev) => {
         console.log('In Subtotal',sum)
@@ -132,7 +181,8 @@ export function BookNowForm() {
       
       setTotal((prev)=>{  
         console.log('sum In Settotal',sum)    
-        console.log('subtotal In setTotal',subTotal)          
+        console.log('subtotal In setTotal',subTotal)      
+            
         return Math.round(Number(sum * discount))
       })     
      
@@ -217,6 +267,8 @@ export function BookNowForm() {
         discountString = '0%'
       }
      
+      
+      
   return(
 
     <div className="book-container">     
@@ -459,6 +511,7 @@ export function BookNowForm() {
                   <input 
                     type="number"
                     min = '0'
+                    defaultValue={0}
                     name="numberOfOven"              
                     onChange={handleChange}
                   />
@@ -638,7 +691,7 @@ export function BookNowForm() {
       </div>
       <button type="Submit">Submit</button>
 
-      <div className="quato">
+      <div className="quote">
           <div className="quote-header">
             <div className="firstRow">
               <div className="firstRowLeft">
@@ -674,7 +727,7 @@ export function BookNowForm() {
                 </div>
               </div>
               <div className="secondRowRight">
-                    <p>Quote number: 001</p>
+                    <p>Quote number: {idGenerator(5)}</p>
                     <p>Quote date: {myCurrentDate}</p>
                     <p>Cleaning date:  {sheduledCleaning} at {formData.cleaningTime}</p>
                   
@@ -707,7 +760,7 @@ export function BookNowForm() {
                 </div>
 
               </div>
-              <div className="table_raw">
+              <div className="table_raw subTotal_Row">
                 <div className="table_left">
                    <p>                    
                     Subtotal
@@ -721,11 +774,11 @@ export function BookNowForm() {
               <div className="table_raw">
                 <div className="table_left">
                   
-                  {discountString === '0%' ? '' : <p>Discount </p>}
+                  {discountString === '0%' ? <p style={HideDiv}></p> : <p style={ShowDiv}>Discount </p>}
                                     
                 </div>                
                 <div className="table_right">
-                  {discountString === '0%' ? '' : <p>{discountString}</p>}
+                  {discountString === '0%' ? <p style={HideDiv}></p> : <p style={ShowDiv}>{discountString}</p>}
                 </div>
 
               </div>
@@ -764,13 +817,14 @@ export function BookNowForm() {
         </section>
         {/* <section className="section-middle"></section> */}
         <section className="section-right">
-          <div className="right-top">            
+          <div className="right-top right-box">            
             <p>Top</p>
           </div>
-          <div className="right-bottom">
-            <div className="right-bottom-top">
-              <p>Book Summary</p>
-            </div>
+          <div className="booking-summary-container">
+            <div className="right-box">            
+            <p>Booking Summary</p>            
+          </div>
+          <div className="right-box booking-detail">            
             <div className="quoteSummary">
               <div className="quoteLeft">
                 Cleaning requested:
@@ -789,7 +843,7 @@ export function BookNowForm() {
             </div>  
             <div className="quoteSummary">
               <div className="quoteLeft">
-                frequency:
+                Frequency:
               </div>
               <div className="quoteRight">
                 {frequencyString}
@@ -805,11 +859,39 @@ export function BookNowForm() {
             </div>  
 
           </div>
+          <div className="right-box totalSummary" >            
+            <div className="quoteLeft">
+                Total:
+              </div>
+              <div className="quoteRight">
+                $ {total}
+              </div>             
+          </div>
+          </div>
+          
+          
         </section>
       </div>
     </div>
     
+
+
+
     
    
   )
 }
+
+
+// const idGenerator = (lengthOfId) => {    
+//     const myVariable = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789~@!#$%^&*()_+:"?><|[]{}';
+//     let numberOfChar = 0
+//     let myId = ''
+//     while (numberOfChar < lengthOfId) {
+//       myId += myVariable.charAt(Math.floor(Math.random() * myVariable.length));
+//       numberOfChar += 1;
+//     }
+//     return Date.now() +'-'+ myId ;
+// }
+
+// console.log('myId',idGenerator(5));
