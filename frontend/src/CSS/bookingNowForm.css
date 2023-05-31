@@ -1,4 +1,14 @@
+.headpage{
+    font-weight: bold;
+    font-size:1.7rem;
+    text-align:center;
+    border-bottom: .1rem solid lightgray;
+    padding: 2rem 0;
+}
 
+.fieldset-container{
+    padding:0 0 2rem 1rem;
+}
 form{
     background-color:inherit;
     width:100%;     
@@ -7,12 +17,15 @@ form{
 
 fieldset,
 .fieldset-container{
-    padding:0 1rem;
+    /* padding:0 1rem; */
     outline:none;
     border-bottom: .1rem solid lightgray;
+    /* border-top: .1rem solid lightgray; */
     margin:2rem 0;
 
 }
+
+
 
 
 

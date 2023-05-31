@@ -196,7 +196,7 @@ export function BookNowForm() {
 
   const myDate = new Date()
 
-  const dateToClean = new Date(formData.cleaningDate)
+  const dateToClean = new Date(formData.cleaningDate )
 
 
   let month = (month)=>{
@@ -230,14 +230,12 @@ export function BookNowForm() {
   }
 }
   const myCurrentDate = `
-  ${myDate.getDate()} -
-  ${month(myDate.getMonth())} -
-  ${myDate.getFullYear()}`;
+  ${myDate.getDate()}-${month(myDate.getMonth())}-${myDate.getFullYear()}`;
 
  const sheduledCleaning = `
-  ${dateToClean.getDate()} -
-  ${month(dateToClean.getMonth())} -
-  ${dateToClean.getFullYear()}`;
+  ${dateToClean.getUTCDate()}-${month(dateToClean.getUTCMonth())}-${dateToClean.getUTCFullYear()}`;
+
+  
 
 
       let frequencyString = ''
@@ -277,12 +275,13 @@ export function BookNowForm() {
       </header>
       <div className="form-section-container">
         <section className="section-left">
-          <p>i am the left section in the page</p>
+          
+          <h1 className="headpage">Please complete your cleaning Booking</h1>
            <div>
-    console.log(formData)
-        {submitting &&
+    {/* {console.log(formData)} */}
+      {submitting &&
        <div>
-         You are submitting the following:
+         your booking is submitted
          <ul>
            {Object.entries(formData).map(([name, value]) => (
              <li key={name}><strong>{name}</strong>:{value.toString()}</li>
@@ -292,8 +291,8 @@ export function BookNowForm() {
       }
       <form onSubmit={handleSubmit}>
       <fieldset className="fieldset-container">
-        <legend className="legend">Personal Information:</legend>
-        <div className="flex-form-container first-row">
+          <legend className="legend">Personal Information:</legend>
+            <div className="flex-form-container first-row">
           <div className="form-control box1">
             <label>
               <p> First Name</p>
@@ -356,10 +355,10 @@ export function BookNowForm() {
         <div className="flex-form-container third-row">
           <div className="form-control box6">
             <label>
-              <p> Street Number & Name</p>
+              <p> Street #  & Name</p>
               <input 
                 name="streetName"
-                placeholder="enter your street number and name"
+                placeholder="street number and name"
                 onChange={handleChange}
               />
             </label>
@@ -395,7 +394,8 @@ export function BookNowForm() {
             </label>
           </div>
         </div>
-      </fieldset >
+      </fieldset>
+      
       {/* Information about the property */}
       <fieldset className="fieldset-container">
       <legend className="legend"> Property Information:</legend>
@@ -431,7 +431,7 @@ export function BookNowForm() {
             </select>
           </label>         
         </div>
-      <div className="flex-element">     
+      {/* <div className="flex-element">     
           <label>
               <p>Square footage og the property</p>
               <input 
@@ -441,7 +441,7 @@ export function BookNowForm() {
                 onChange={handleChange}
               />
             </label>     
-        </div>
+        </div> */}
 
 
      </div>
@@ -641,13 +641,7 @@ export function BookNowForm() {
       {/* :''
       } */}
      
-      <div>
-        {/* <label>
-          total
-          <input
-          
-            value= {isNaN(total) ? 0 : total } readOnly/>
-        </label> */}
+      {/* <div>
         <label>
           Subtotal
           <input value={subTotal} readOnly/>
@@ -660,8 +654,10 @@ export function BookNowForm() {
           Total
           <input value= {isNaN(total) ? 0 : total } readOnly/>
         </label>
-      </div>
-      <div className="flexContainer">
+      </div> */}
+      <fieldset className="fieldset-container">
+        <legend className="legend">Schedule your time</legend>
+        <div className="flexContainer">
           <div className="flex-element"> 
             <label>
               Date:
@@ -689,6 +685,9 @@ export function BookNowForm() {
           }
        
       </div>
+
+      </fieldset>
+      
       <button type="Submit">Submit</button>
 
       <div className="quote">
