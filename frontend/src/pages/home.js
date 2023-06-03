@@ -1,14 +1,18 @@
 
 import React from "react";
 
-import background from '../pics/house-cleaning.jpg'
+// import background from '../pics/house-cleaning.jpg'
+import background from '../pics/benjaskya.png'
 import { CallToAction } from "../Components/callToAction";
 import { Section } from "../Components/section";
 import { HeadContent } from "../Components/headContent";
+
 import '../CSS/home.css';
 import { WhyBenskya } from "../Components/whyBenskya";
+import hero from '../pics/benjaskya.png'
 
 const introMsg = 'Professional, affordable, insured and bonded cleaning services in Indianapolis and surroundings'
+const imageBacground = <img src={hero} alt="Logo" />
 const sectionOne = [
  {
 	id: 1,
@@ -42,7 +46,7 @@ const Home = () => {
     <div className="main-container">     
       
         <div>
-            <HeadContent text={introMsg}/>            
+            <HeadContent text={introMsg} pic={imageBacground}/>            
         </div>
         <div>
           <CallToAction />
@@ -50,9 +54,10 @@ const Home = () => {
         <div>
           <Section  arrayObject= {sectionOne} imgUrl={background}/>  
         </div>
+        
         <div>
           <WhyBenskya />
-        </div>
+        </div> 
         
         
     </div>

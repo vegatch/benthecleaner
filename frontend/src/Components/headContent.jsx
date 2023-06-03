@@ -23,6 +23,7 @@ export const  HeadContent = (props) => {
                 <div className="background-wrapper" style={myStyle}>
                     
                 </div>
+
                 <div className="subtitle">
                     <div className="motto">                        
                         <HeroMsg text = {props.text} />                        
