@@ -3,9 +3,7 @@ import {idGenerator} from "./idGenetarion";
 import "../CSS/bookingNowForm.css";
 import logo from '../pics/logo.png'
 
-// import { useState, useRef } from 'react'
-// import { useRef } from "react";
-// import React, { useState } from "react";
+
 
 import "../CSS/book.css";
 
@@ -270,9 +268,9 @@ export function BookNowForm() {
   return(
 
     <div className="book-container">     
-      <header className="head-page">
+      {/* <header className="head-page">
           <p>i am the head page</p>
-      </header>
+      </header> */}
       <div className="form-section-container">
         <section className="section-left">
           

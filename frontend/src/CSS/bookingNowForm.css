@@ -9,6 +9,11 @@
 .fieldset-container{
     padding:0 0 2rem 1rem;
 }
+
+.form-section-container{
+    margin: o auto;
+}
+
 form{
     background-color:inherit;
     width:100%;     

@@ -1,8 +1,6 @@
 .main-container{
     width:100%; 
     overflow-y:visible;
-    
-
 }
 
 .home-container{
@@ -46,68 +44,41 @@
     width:100%;
 }
 
-
-/* .background-wrapper img {
-  
-    width: 100%;    
-    height: 100%;  
-    object-fit: cover;      
-} */
-
-/* .title-container p:nth-child(1){
-    font-size: 2.4rem;   
-    margin-bottom: 3rem;
-    line-height: 2.6rem;
-} */
 .title-container p{
     font-size: 2.4rem;   
     margin-bottom: 3rem;
     line-height: 4rem;
 }
 
-/* .motto-text{
-    font-size: 2.4rem;   
-    margin-bottom: 3rem;
-    line-height: 4rem;
-} */
 
-/* .title-container p:nth-child(2),
-.title-container p:nth-child(3){
-    font-size: 1.6rem; 
-    margin-bottom: 1rem;
-} */
-
-
-
-.btn
+.btn-container button
 {
     width: 20rem;
     height:3rem;
     border-radius: 1.2rem;
     outline: 0;
     border: 0;
+    /* color:white;
+    font-size:1.2rem; */
     background-color: #ff6e40;    
     cursor:pointer;
 }
 
 #btnPhone:hover,
 #btnBooking:hover,
-#btnBookingNow:hover
+#btnBookingNow:hover,
+.btn-container button:hover
 {
     color:black;
-    /* text-decoration: underline; */
     font-size:1.2rem;
 }
 
-/* .btn a{
-    text-decoration: none;
-    color:white;
-    font-size:1.1rem;
-}  */
+
 
 #btnPhone,
 #btnBooking,
-#btnBookingNow{
+#btnBookingNow,
+.btn-container button{
     text-decoration: none;
     color:white;
     font-size:1.1rem;
@@ -116,13 +87,11 @@
     
 }
 
-.motto{
-   /* background-color: red; */
-   width: 50%;
-   margin: auto;
-   border-left: .2rem solid darkgray;
-   border-radius: .2rem;
-   /* height:40vh; */
+.motto{   
+    width: 50%;
+    margin: auto;
+    border-left: .2rem solid darkgray;
+    border-radius: .2rem;
 }
 
 .motto p{
@@ -131,12 +100,7 @@
     text-shadow: 4px 4px 1px black;
 }
 
-/* .banner{
-    display:flex;
-    justify-content: space-between;
-    background-color:lightgray;
-    padding: 0 20rem ;
-} */
+
 
 .banner-link a,
 .banner-text,
@@ -144,7 +108,6 @@
     color:black;
     font-size: 1.5rem;
     font-weight:bolder;
-    /* text-shadow: 2px 2px 1px white; */
     padding: 1rem 0;
 }
 
@@ -152,8 +115,6 @@
     display:flex;
     width:90%;
     margin: 1rem auto;
-
-    
 }
 
 .sectionIntro-right,
@@ -192,5 +153,4 @@
 .btn-container{
     display:flex;
     justify-content: center;
-
 }

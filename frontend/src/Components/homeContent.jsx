@@ -1,7 +1,14 @@
 import React from "react";
-import {  NavLink } from "react-router-dom";
+import {  NavLink, useLocation } from "react-router-dom";
 import "../CSS/home.css";
 import Button from "./btn";
+
+const ButtonView = () => {
+  const location = useLocation();
+  if(location.pathname !=='/bookNow'){
+    return <Button value='Book online now' />
+  }
+}
 
 
 
@@ -13,7 +20,8 @@ return (
     <div className="title-container" >
         <div className="background"
         style={{
-          backgroundImage: `url(${props.photo})`
+          backgroundImage: `url(${props.photo})`,
+          backgroundRepeat: 'no-repeat',
         }}>
             <div className="background"
             style={{
@@ -24,13 +32,9 @@ return (
                     <div className="motto">                        
                         <p className="motto-text"> {props.text}</p>                     
                     </div>
-                    <div>
+                    <div className="btn-container">
                         <NavLink to= '/bookNow'>
-                            <Button
-                                id={"btnBookingNow"}
-                                type={"button"}
-                                value={"Book online now"}                     
-                            />
+                            {ButtonView()}                          
                         </NavLink>                        
                     </div>
 

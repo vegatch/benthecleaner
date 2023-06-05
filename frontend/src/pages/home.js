@@ -1,18 +1,19 @@
 
 import React from "react";
 
-// import background from '../pics/house-cleaning.jpg'
-import background from '../pics/benjaskya.png'
+import background from '../pics/house-cleaning.jpg'
+// import background from '../pics/benjaskya.png'
 import { CallToAction } from "../Components/callToAction";
 import { Section } from "../Components/section";
-import { HeadContent } from "../Components/headContent";
+// import { HeadContent } from "../Components/headContent";
+import { HomeContent } from "../Components/homeContent";
 
 import '../CSS/home.css';
 import { WhyBenskya } from "../Components/whyBenskya";
-import hero from '../pics/benjaskya.png'
+// import background from '../pics/benjaskya.png'
 
-const introMsg = 'Professional, affordable, insured and bonded cleaning services in Indianapolis and surroundings'
-const imageBacground = <img src={hero} alt="Logo" />
+const headMessage = 'Professional, affordable, insured and bonded cleaning services in Indianapolis and surroundings'
+// const imageBacground = <img src={hero} alt="Logo" />
 const sectionOne = [
  {
 	id: 1,
@@ -45,8 +46,11 @@ const Home = () => {
   return (
     <div className="main-container">     
       
-        <div>
+        {/* <div>
             <HeadContent text={introMsg} pic={imageBacground}/>            
+        </div> */}
+        <div>
+            <HomeContent text={headMessage} photo={background}/>            
         </div>
         <div>
           <CallToAction />

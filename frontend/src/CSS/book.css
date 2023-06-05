@@ -4,9 +4,10 @@
 }
 
 .book-container{
-    width:89%; 
+    width:90%; 
     display:block;
     margin: 0 auto;  
+    /* background-color:red */
     
 }
 
@@ -15,6 +16,7 @@
 {
     display: flex;
     width:inherit; 
+    margin:0 auto;
     
 }
 .section-container{    
@@ -36,11 +38,11 @@
 /* .section-right, */
 .right-top,
 .right-bottom{
-    border: 1px solid black;
+    border: .1rem solid lightgray;
     padding: 1rem 1rem;
     margin:3rem 0;
     background-color:inherit;
-    box-shadow: .1rem .1rem #888888;
+    box-shadow: .1rem .1rem lightgray;
     /* background-color:black */
 }
 
@@ -104,25 +106,23 @@
     /* margin-right: 1rem; */
 }
 
-.label-flex-container button{
+/* .label-flex-container button{
     font-weight:bold;
     height:.7rem;
     border: none;
     background-color:var(--bg-color-highlight);
-    /* margin-right: .4rem; */
-    /* font-size:1.1rem; */
     display:block
-}
+} */
 
 .label-flex-container .btn2{
     rotate: 180deg;
     
 }
 
-input[type=number]::-webkit-inner-spin-button {
+/* input[type=number]::-webkit-inner-spin-button {
   opacity: 1;
   background-color:red
-}
+} */
 input{
     padding-left:.3rem;
     margin-left: .5rem;

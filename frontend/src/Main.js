@@ -8,6 +8,7 @@ import { Route,
 import Home from './pages/home';
 import About from './pages/aboutUs';
 import BookNow from './pages/bookNow'
+import Faq from './pages/faq';
 import Contact from './pages/contactUs'
 import ErrorPage from './pages/errorPage';
 import './CSS/main.css'
@@ -30,6 +31,7 @@ export default function App() {
                 <Route exact path='/'  element={<Home/>}/>
                 <Route path='/About' element={<About/>}/>
                 <Route path='/bookNow' element={<BookNow/>}/>
+                <Route path='/faq' element={<Faq/>}/>
                 <Route path='/contactUs' element={<Contact/>}/> 
                 <Route  path="*" element={<ErrorPage/>}/> 
             </Routes>

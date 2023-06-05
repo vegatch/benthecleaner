@@ -2,6 +2,7 @@ import {  NavLink } from "react-router-dom";
 import React from "react";
 import '../CSS/navbar.css'
 import logo from '../pics/logo.png'
+import { GiHamburgerMenu } from 'react-icons/gi';
 
 
 
@@ -17,10 +18,13 @@ export default function Navbar() {
                 <li><NavLink end to= '/'>Home</NavLink></li>
                 <li><NavLink to= '/About' >About</NavLink></li>
                 <li><NavLink to= '/bookNow'>BookNow</NavLink></li>
+                <li><NavLink to= '/faq'>FAQ</NavLink></li>
                 <li><NavLink to= '/contactUs'>Contact</NavLink></li>  
                 <li className="phone"><a href="tel:7862472127">786-247-2127</a></li>                      
-            </ul>
-            
+            </ul>            
+        </div>
+        <div>
+              <GiHamburgerMenu className="hamburger"/>
         </div>
     </div>
   )
