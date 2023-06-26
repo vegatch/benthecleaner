@@ -1,8 +1,8 @@
 
-import React, { useRef } from 'react'
+import React, { useState } from 'react'
 // import { HomeContent } from "../Components/homeContent";
 // import background from '../pics/house-cleaning.jpg'
-import emailjs from "emailjs-com";
+// import emailjs from "emailjs-com";
 import { HiMail } from 'react-icons/hi';
 import { BsFillTelephoneFill } from 'react-icons/bs';
 import { ImLocation } from 'react-icons/im';
@@ -88,23 +88,52 @@ const contactStyle = {
 }
 
 export const ContactForm = () => {
-  const form = useRef();
-    const sendEmail =(e) =>{
-        e.preventDefault();
+  // const form = useRef();
 
-        emailjs.sendForm(
-            // `${process.env.REACT_APP_SERVICE_ID}`,
-            // process.env.REACT_APP_TEMPLATE_ID,
-            "service_h9iq583",
-            "template_zvi6kcy",
-            form.current,
-            "aX7cT6vMfpAbYT1QC"
-            // `${process.env.REACT_APP_KEY_ID}`
-        ).then(
-            result => console.log(result.text),
-            error => console.log(error.text)
-        );
-    };
+  const [messageState, setMessageState] = useState({
+   client_name: "",
+   client_email: "",
+   phone_number:'',
+   message: "",
+ });
+
+ const handleChange = (e) => {
+   setMessageState((prevState) => ({
+     ...prevState,
+     [e.target.name]: e.target.value,
+   }));
+ }
+    const submitEmail = async (e) => {
+   e.preventDefault();
+   console.log({ messageState });
+   const response = await fetch("http://localhost:3001/send", {
+     method: "POST",
+     headers: {
+       "Content-type": "application/json",
+     },
+     body: JSON.stringify({ messageState }),
+     
+   })
+     .then((res) => res.json())
+     .then(async (res) => {
+       const resData = await res;
+       console.log(resData);
+       console.log(response);
+       if (resData.status === "success") {
+         alert("Message Sent");
+       } else if (resData.status === "fail") {
+         alert("Message failed to send");
+       }
+     })
+     .then(() => {
+       setMessageState({
+          client_name: "",
+          client_email: "",
+          phone_number:'',
+          message: "",
+       });
+     });
+ };
 
     return(
 
@@ -142,15 +171,37 @@ export const ContactForm = () => {
                 <div style={contactStyle.rightContainer}>
                   
                   <div >
-                     <form ref={form} onSubmit={sendEmail} style={contactStyle.form}>
+                     <form  onSubmit={submitEmail} style={contactStyle.form}>
                       <label>Name</label>
-                      <input type="text" name="user_name" style={contactStyle.input} required/>
+                      <input 
+                        type="text" 
+                        name="client_name" 
+                        onChange={handleChange} 
+                        value={messageState.client_name}
+                        style={contactStyle.input} 
+                        required/>
                       <label>Email</label>
-                      <input type="email" name="user_email" style={contactStyle.input} required/>
+                      <input 
+                        type="email" 
+                        name="client_email" 
+                        onChange={handleChange} 
+                        value={messageState.client_email}
+                        style={contactStyle.input} required/>
                       <label>Phone number</label>
-                      <input type="text" name="phone_number" style={contactStyle.input} required/>
+                      <input 
+                        type="text" 
+                        name="phone_number" 
+                        onChange={handleChange} 
+                        value={messageState.phone_number}
+                        style={contactStyle.input} required/>
                       <label style={contactStyle.label}>Message</label>
-                      <textarea name="message" cols="30" rows="15" style={contactStyle.textarea} required/>
+                      <textarea 
+                        name="message" 
+                        cols="30" 
+                        rows="15" 
+                        onChange={handleChange} 
+                        value={messageState.message}
+                        style={contactStyle.textarea} required/>
                       
                       <button style={contactStyle.btn}> Send us your message</button>
                   </form>

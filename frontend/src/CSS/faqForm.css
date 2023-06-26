@@ -56,12 +56,13 @@
 .title-question{
     
     font-weight:bold;
-    /* margin:1rem 0; */
+    /* color: gold; */
     margin-bottom: .3rem;
 }
 
 .faq-answer{
      margin-bottom: 1.1rem;
+     /* padding-left: 1rem; */
 }
 
 .faq-hide{
@@ -80,4 +81,13 @@
 .returnToFaq{
     font-weight:bold;
     cursor:pointer;
+}
+
+.returnToFaq:hover{
+    text-decoration:underline;
+    text-shadow: #FC0 1px 0 10px;
+}
+.emphasis-title{
+    font-weight:bold;
+    font-size: 1.5rem;
 }
