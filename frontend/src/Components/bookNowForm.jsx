@@ -20,10 +20,10 @@ const times = ['Please select a time','8:00 AM', '11:00 AM', '1:00 PM']
 
 const cleaningTypes = [
   'Please select your cleaning option', 
-'Standard Cleaning', 
-'Deep Cleaning', 
-'Move In / Move Out',
-'Post construction'
+  'Standard Cleaning', 
+  'Deep Cleaning', 
+  'Move In / Move Out',
+  'Post construction'
 ]
 
 const cleaningDescription = {
@@ -34,7 +34,28 @@ const cleaningDescription = {
 }
  
 
-
+const initialState = {
+  firstName:'',
+          middleName:'',
+          lastName:'',
+          email:'',
+          phoneNumber:'',
+          streetName:'',
+          city:'',
+          state:'',
+          zipCode:'',
+          bedroom:0,
+          bathroom:0,
+          cleaningType:'Please select your cleaning option',
+          cleaningFrequency:'',
+          oven:'',
+          fridge:'',
+          window:'',
+          fan:'',
+          laundry:'',
+          cleaningDate:'',
+          cleaningTime:'Please select a time',
+}
 // console.log(roomsNumber.indexOf(roomsNumber))
 
 const formReducer = (state, event)=>{
@@ -46,6 +67,7 @@ const formReducer = (state, event)=>{
 }
 export function BookNowForm() {
   const [formData, setFormData] = useReducer(formReducer, {bedroom:0, bathroom:0})
+  // const [formData, setFormData] = useState(initialState);
   const [submitting, setSubmitting] = useState(false);
   const [total, setTotal] = useState(0);
   const [subTotal, setSubTotal] = useState(0)
@@ -56,24 +78,70 @@ export function BookNowForm() {
     
 
 
-  const handleSubmit = (e) =>{
-    e.preventDefault();
-    setSubmitting(true);
+  // const handleSubmit = (e) =>{
+  //   e.preventDefault();
+  //   setSubmitting(true);
     
-    setTimeout(()=>{
-      setSubmitting(false);
+  //   setTimeout(()=>{
+  //     setSubmitting(false);
      
-    }, 10000)
-  }
+  //   }, 10000)
+  // }
+
+     const handleSubmit = async (e) => {
+   e.preventDefault();
+    setSubmitting(true);
+   console.log({ formData });
+   const response = await fetch("http://localhost:3001/quoteRequest", {
+     method: "POST",
+     headers: {
+       "Content-type": "application/json",
+     },
+     body: JSON.stringify({ formData }),
+     
+   })
+     .then((res) => res.json())
+     .then(async (res) => {
+       const resData = await res;
+       console.log(resData);
+       console.log(response);
+       if (resData.status === "success") {
+         alert("Message Sent");
+       } else if (resData.status === "fail") {
+         alert("Message failed to send");
+       }
+     })
+     .then(() => {
+      //  setFormData({
+      //     firstName:'',
+      //     middleName:'',
+      //     lastName:'',
+      //     email:'',
+      //     phoneNumber:'',
+      //     streetName:'',
+      //     city:'',
+      //     state:'',
+      //     zipCode:'',
+      //     bedroom:0,
+      //     bathroom:0,
+      //     cleaningType:'Please select your cleaning option',
+      //     cleaningFrequency:'',
+      //     oven:'',
+      //     fridge:'',
+      //     window:'',
+      //     fan:'',
+      //     laundry:'',
+      //     cleaningDate:'',
+      //     cleaningTime:'Please select a time',
+      //  });
+      setFormData(initialState)
+        setSubmitting(false);
+     });
+ };
 
   const handleChange = (event) =>{
-  //  const target = event.target;
-  //   const value = target.type === 'checkbox' ? target.checked : target.value;
-  //   const name = target.name;
-    //  setSelected(event.target.value)
     setFormData({
       name:event.target.name,      
-      // value:event.target.value || event.target.checked
       value: event.target.type === 'checkbox' ? event.target.checked : event.target.value
     })      
   }
@@ -87,9 +155,6 @@ export function BookNowForm() {
     const quote = () =>{
      
       let bath = Number(formData.bathroom);
-      // let oven = isNaN(formData.numberOfOven) ? 0:  Number(formData.numberOfOven) * 40
-      // let fridge = isNaN(formData.numberOfFridge) ? 0:  Number(formData.numberOfFridge) * 40
-      // let fridge = formData.fridge.checked ? Number(formData.numberOfFridge) * 40 : 0
       let oven = ''
       if(formData.oven === true){
         oven = isNaN(formData.numberOfOven) ? 0:  Number(formData.numberOfOven) * 40 
@@ -112,8 +177,6 @@ export function BookNowForm() {
         window = 0
       }
       
-      // let window = isNaN(formData.numberOfWindow) ? 0:  Number(formData.numberOfWindow) * 5
-      // let fan = isNaN(formData.numberOfFans) ? 0:  Number(formData.numberOfFans) * 5
       let fan = ''
       if(formData.fan === true){
         fan = isNaN(formData.numberOfFans) ? 0:  Number(formData.numberOfFans) * 5 
@@ -121,7 +184,6 @@ export function BookNowForm() {
         fan = 0
       }
       
-      // let laundry = isNaN(formData.numberOfLaundry) ? 0:  Number(formData.numberOfLaundry) * 35
       let laundry = ''
       if(formData.laundry === true){
         laundry = isNaN(formData.numberOfLaundry) ? 0:  Number(formData.numberOfLaundry) * 35 
@@ -165,7 +227,6 @@ export function BookNowForm() {
 
       let priceSquareFeet = Number(formData.squareFootage) > 1000 ?  Math.round((formData.squareFootage - 1000) * 0.04) : 0
       
-      // let discount = formData.cleaningFrequency  
       let discount = isNaN(formData.cleaningFrequency) ? 1 : formData.cleaningFrequency
       
       let sum = priceByRoom + (bath * 30) + priceSquareFeet + oven + fridge  + window + fan + laundry + cleaningType 

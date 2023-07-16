@@ -9,18 +9,29 @@ app.use(express.json());
 app.use(cors());
 
 
-let transporter = nodemailer.createTransport({
- service: "gmail",
- auth: {
-   type: "OAuth2",
-   user: process.env.EMAIL,
-   pass: process.env.WORD,
-   clientId: process.env.OAUTH_CLIENTID,
-   clientSecret: process.env.OAUTH_CLIENT_SECRET,
-   refreshToken: process.env.OAUTH_REFRESH_TOKEN,
- },
-});
+// let transporter = nodemailer.createTransport({
+//  service: "gmail",
+//  auth: {
+//    type: "OAuth2",
+//    user: process.env.EMAIL,
+//    pass: process.env.APPWORD,
+//    clientId: process.env.OAUTH_CLIENTID,
+//    clientSecret: process.env.OAUTH_CLIENT_SECRET,
+//    refreshToken: process.env.OAUTH_REFRESH_TOKEN,
+//  },
+// });
 
+
+
+let transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false, // upgrade later with STARTTLS
+  auth: {
+    user: process.env.EMAIL,
+    pass: process.env.APPWORD,
+  },
+});
 
 transporter.verify((err, success) => {
  err
@@ -55,6 +66,48 @@ let mailOptions = {
          <p>Phone: ${message.phone}<p/>
          <p>Email: ${message.email}<p/>
          Message: <p>${message.text}<p/>  
+         `,
+};
+
+ transporter.sendMail(mailOptions, function (err, data) {
+   if (err) {
+     res.json({
+       status: "fail",
+     });
+   } else {
+     console.log("== Message Sent ==");
+     res.json({
+       status: "success",
+     });
+   }
+ });
+});
+
+app.post("/quoteRequest", function (req, res) {
+ 
+let message = {
+  from: `${req.body.formData.firstName} ${req.body.formData.middleName} ${req.body.formData.lastName}`,
+  phone: `${req.body.formData.phoneNumber} `,
+  email: `${req.body.formData.email}`,
+  address: `${req.body.formData.streetName} ${req.body.formData.city} ${req.body.formData.state} ${req.body.formData.zipCode}`,
+  bedroom: `${req.body.formData.bedroom} `,
+  bathroom: `${req.body.formData.bathroom} `,
+  cleaningType: `${req.body.formData.cleaningType} `,
+
+//   html: `${req.body.messageState.message}`
+};
+
+
+
+let mailOptions = {
+   from: `${req.body.formData.email}`,
+   to: process.env.EMAIL,
+   cc:'vegatch1@gmail.com, migaellepithon@gmail.com',
+   subject: `Message of ${req.body.formData.firstName} from Benskya's contact form`,
+  //  text: `<p>${message.text}<p/>  <p>${message.phone}<p/>`,
+   html:`<p>Name: ${message.from}<p/>
+         <p>Phone: ${message.phone}<p/>        
+         Message: <p>${message.address}<p/>  
          `,
 };
 
