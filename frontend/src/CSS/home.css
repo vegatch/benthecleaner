@@ -150,7 +150,27 @@
 }
 
 
-.btn-container{
+.btn-container
+{
     display:flex;
     justify-content: center;
 }
+
+a{
+    text-decoration: none;
+    color: white;
+}
+/* .divButton{
+    background-color: yellow;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+} */
+
+/* .divButton .btn{
+    background-color:red;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    
+} */

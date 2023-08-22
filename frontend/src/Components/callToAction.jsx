@@ -1,6 +1,7 @@
 import React from 'react'
 import {  NavLink } from "react-router-dom";
 import { Button } from "../Components/button";
+import Phone from "../Components/phone";
 
 const actionCall = 'Your search for home cleaning service near me ends here.'
 export const CallToAction = (props) => {
@@ -8,12 +9,17 @@ export const CallToAction = (props) => {
     <div className='actionCall-wrapper'>
         <p>{actionCall}</p>
         <div className='btn-container'>
-            <div>
-                <Button
-                    id={"btnPhone"}
-                    type={"button"}
-                    value={"Call us now at 786-247-2127"}
-                />
+            <div className='divButton'>
+                
+                <div>
+                    <Button
+                        id={"btnPhone"}
+                        type={"button"}
+                        // value={"Call us now"}
+                        value = {<Phone />}
+                    />
+                </div>
+                
             </div>
             <div>                
                 <NavLink to= '/bookNow'>
