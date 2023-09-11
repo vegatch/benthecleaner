@@ -19,6 +19,7 @@ export const HomeContent = (props) => {
 return (
     <div className="title-container" >
         <div className="background"
+
         style={{
           backgroundImage: `url(${props.photo})`,
           backgroundRepeat: 'no-repeat',
