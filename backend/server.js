@@ -96,6 +96,7 @@ let message = {
   Frequency: `${req.body.formData.cleaningFrequency} `,
   Frequency: `${req.body.formData.cleaningFrequency} `,
   Oven:  `${req.body.formData.oven} `,
+  numOven: `${req.body.formData.numberOfOven} `,
   Fridge:  `${req.body.formData.fridge} `,
   Window:  `${req.body.formData.window} `,
   Fan:  `${req.body.formData.fan} `,
@@ -115,12 +116,12 @@ let mailOptions = {
   //  text: `<p>${message.text}<p/>  <p>${message.phone}<p/>`,
    html:`<p>Name: ${message.from}</p>
          <p>Phone: ${message.phone}</p>        
-         ADdress: <p>${message.address}</p>  
+         Address: <p>${message.address}</p>  
          <p># of bedhroom: <strong>${message.bedroom}</strong></p>
          <p># of bathroom: <strong>${message.bathroom}</strong></p>
-         <p>Type of cleaning requested: <strong>${message.cleaningType}/<strong></p>         <p>Frequency: <strong>${message.Frequency}<strong></p>
+         <p>Type of cleaning requested: <strong>${message.cleaningType}</strong></p>         <p>Frequency: <strong>${message.Frequency}<strong></p>
          <p>Additional services requested</p>
-        <p>Oven: strongp>${message.oven}</strong></p>
+        <p>Oven: <strongp>${message.numOven}</strong></p>
          `,
 };
 

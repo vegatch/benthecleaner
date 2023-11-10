@@ -338,7 +338,7 @@ export function BookNowForm() {
           <h1 className="headpage">Please complete your cleaning Booking</h1>
            <div>
     {/* {console.log(formData)} */}
-      {submitting &&
+      {/* {submitting &&
        <div>
          your booking is submitted
          <ul>
@@ -347,7 +347,7 @@ export function BookNowForm() {
            ))}
          </ul>
        </div>
-      }
+      } */}
       <form onSubmit={handleSubmit}>
       <fieldset className="fieldset-container">
           <legend className="legend">Personal Information:</legend>
